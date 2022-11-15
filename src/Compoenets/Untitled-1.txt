@@ -1,0 +1,1 @@
+npm i @emotion/react @emotion/styled @material-ui/icons @mui/icons-material @mui/material react-router react-router-dom

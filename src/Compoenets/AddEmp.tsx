@@ -1,11 +1,11 @@
+import { VisibilityOff, Visibility } from '@mui/icons-material'
+import { Button, Grid, Box, TextField, FormControl, InputLabel, FilledInput, InputAdornment, IconButton, FormLabel, RadioGroup, FormControlLabel, Radio, Switch, Checkbox, Select, MenuItem, TextareaAutosize, SelectChangeEvent } from '@mui/material'
 import React from 'react'
+import { useForm } from 'react-hook-form';
 import styled from "styled-components";
-import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input } from '@mui/material';
-import { useForm } from "react-hook-form";
-import { useRequired } from '../common/ts/useRequired';
-import { Label, Visibility, VisibilityOff } from '@mui/icons-material';
 
-export default function Welcomepage() {
+
+export default function AddEmp() {
 
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
@@ -28,7 +28,7 @@ export default function Welcomepage() {
     }
 
     //Custom Hooks
-    const validation = useRequired();
+    // const validation = useRequired();
 
     // Click Event Function
     const onSubmit = (data: any) => {
@@ -52,15 +52,18 @@ export default function Welcomepage() {
             showPassword: !values.showPassword,
         });
     };
-    const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangePass = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
+    const handleChangeConfirmPass = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
+
     return (
         <>
-            <Header>Welcome To Techovarya</Header>
-            <SubHeader>SignUp with Techovarya</SubHeader>
-            <Grid container spacing={1} sx={{ justifyContent: 'center'  }}>
+            <Header>Add Employer</Header>
+            <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
                 <Form onSubmit={handleSubmit(onSubmit)} >
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
                         <TextField sx={{ width: '100%', }}{...register("FirstName")} label="First Name" variant="filled" required />
@@ -71,21 +74,20 @@ export default function Welcomepage() {
                         <TextField sx={{ width: '100%' }} {...register("Phone Number")} label="Phone Number" variant="filled" required />
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input
-                                id="standard-adornment-password"
-                                type={values.showPassword ? 'text' : 'password'}
+                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
+                            <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
+                            <FilledInput
+                                id="filled-adornment-password"
+                                type={values.showPassword ? "text" : "password"}
                                 value={values.password}
-                                {...register("Password")}
-                                required
-                                onChange={handleChange('password')}
+                                onChange={handleChangePass("password")}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
+                                            edge="end"
                                         >
                                             {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                         </IconButton>
@@ -93,21 +95,20 @@ export default function Welcomepage() {
                                 }
                             />
                         </FormControl>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input
-                                id="password"
-                                type={values.showPassword ? 'text' : 'password'}
+                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
+                            <InputLabel htmlFor="filled-adornment-password">Confirm Password</InputLabel>
+                            <FilledInput
+                                id="filled-adornment-password"
+                                type={values.showPassword ? "text" : "password"}
                                 value={values.password}
-                                {...register("Password")}
-                                required
-                                onChange={handleChange('password')}
+                                onChange={handleChangeConfirmPass("password")}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
                                             onClick={handleClickShowPassword}
                                             onMouseDown={handleMouseDownPassword}
+                                            edge="end"
                                         >
                                             {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                         </IconButton>
@@ -116,7 +117,6 @@ export default function Welcomepage() {
                             />
                         </FormControl>
                     </Box>
-
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
                             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
@@ -134,34 +134,34 @@ export default function Welcomepage() {
                         </FormControl>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
                             <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
-                            <FormControlLabel  control={<Switch defaultChecked />} label="Active" />
+                            <FormControlLabel control={<Switch defaultChecked />} label="Active" />
                         </FormControl>
                     </Box>
                     <Box sx={{ display: 'flex' }}>
                         <Grid lg={12}>
                             <FormLabel component="legend">Choose Your Hobbies</FormLabel>
                             <FormControlLabel
-                            {...register("Singing")}
+                                {...register("Singing")}
                                 control={< Checkbox />} label="Singing"
                             />
                             <FormControlLabel
-                            {...register("bodyBuilding")}
+                                {...register("bodyBuilding")}
                                 control={< Checkbox />} label="bodyBuilding"
                             />
                             <FormControlLabel
-                            {...register("Photography")}
+                                {...register("Photography")}
                                 control={< Checkbox />} label="Photography"
                             />
                             <FormControlLabel
-                            {...register("Painting")}
+                                {...register("Painting")}
                                 control={< Checkbox />} label="Painting"
                             />
                             <FormControlLabel
-                            {...register("dacing")}
+                                {...register("dacing")}
                                 control={< Checkbox />} label="dacing"
                             />
                             <FormControlLabel
-                            {...register("Art and Craft")}
+                                {...register("Art and Craft")}
                                 control={< Checkbox />} label="Art and Craft"
                             />
                         </Grid>
@@ -183,8 +183,6 @@ export default function Welcomepage() {
                             <MenuItem value={70}>Post-Graduation</MenuItem>
                         </Select>
                     </FormControl>
-
-
                     <TextareaAutosize
                         aria-label="empty textarea"
                         placeholder="Enter your Discription"
@@ -192,14 +190,15 @@ export default function Welcomepage() {
                         style={{ height: '60px', width: '500' }}
                         {...register("discription")}
                     />
-                    <Button type='submit' variant="contained" color="primary" >
-                        Signup
+                    <Button type='submit' variant="contained" color="primary">
+                        Sign Up
                     </Button>
                 </Form>
             </Grid>
         </>
     )
 }
+
 const Form = styled.form`
 display:flex;
 flex-direction:column;
@@ -212,8 +211,4 @@ box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 `;
 const Header = styled.h1`
 text-align: center;
-`;
-const SubHeader = styled.h4`
-text-align: center;
-
 `;
