@@ -1,47 +1,29 @@
 import React from 'react'
-    import styled from "styled-components";
-import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput } from '@mui/material';
+import styled from "styled-components";
+import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm } from "react-hook-form";
-import { useRequired } from '../common/ts/useRequired';
-import { Label, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Email, Label, Visibility, VisibilityOff } from '@mui/icons-material';
 
-export default function SignUpForm() {
+export default function Registeration() {
 
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
-    const [age, setAge] = React.useState('');
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const [values, setValues] = React.useState<State>({
-        amount: '',
+    const [Education, setEducation] = React.useState('');
+    const { register, formState: { errors }, watch, handleSubmit } = useForm();
+    const [values, setValues] = React.useState({
         password: '',
-        weight: '',
-        weightRange: '',
         showPassword: false,
     });
-
-    interface State {
-        amount: string;
-        password: string;
-        weight: string;
-        weightRange: string;
-        showPassword: boolean;
-    }
-
-    //Custom Hooks
-    const validation = useRequired();
 
     // Click Event Function
     const onSubmit = (data: any) => {
         console.log(JSON.stringify(data));
     };
 
-    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setSelectedValue(event.target.value);
-    // };
-
     const handleDDL = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
+        setEducation(event.target.value as string);
     };
+
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
@@ -52,26 +34,41 @@ export default function SignUpForm() {
             showPassword: !values.showPassword,
         });
     };
-    const handleChangePass = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(watch("example"));
+
+    const handleChangePass = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [prop]: event.target.value });
     };
-    const handleChangeConfirmPass = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeConfirmPass = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
     return (
         <>
             <Header>Welcome To Techovarya</Header>
-            <SubHeader>SignUp with Techovarya</SubHeader>
-            <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
+            {/* <SubHeader>SignUp with Techovarya</SubHeader> */}
+            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                 <Form onSubmit={handleSubmit(onSubmit)} >
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
-                        <TextField sx={{ width: '100%', }}{...register("FirstName")} label="First Name" variant="filled" required />
-                        <TextField sx={{ width: '100%', }}{...register("LastName")} label="Last Name" variant="filled" required />
+                        <Grid>
+                            <TextField sx={{ width: '100%', }} {...register("firstName", { required: true, })} name="firstName" label="First Name" variant="filled" />
+                            {errors?.firstName?.type === "required" && <Error>This Feild is required</Error>}
+                        </Grid>
+                        <Grid>
+                            <TextField sx={{ width: '100%', }} {...register("LastName", { required: true, })} name="lastName" label="Last Name" variant="filled" />
+                            {errors?.LastName?.type === "required" && <Error>This Feild is required</Error>}
+                        </Grid>
                     </Box>
+                    
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
-                        <TextField sx={{ width: '100%', }} {...register("Email")} label="Email" variant="filled" required />
-                        <TextField sx={{ width: '100%' }} {...register("Phone Number")} label="Phone Number" variant="filled" required />
+                        <Grid>
+                            <TextField sx={{ width: '100%' }} {...register("Email", { required: true, })} label="Email" type="email" variant="filled" />
+                            {errors?.Email?.type === "required" && <Error>This Feild is required</Error>}
+                        </Grid>
+                        <Grid>
+                            <TextField sx={{ width: '100%' }} {...register("Number", { required: true, })} type="number" label="Phone" variant="filled" />
+                            {errors?.Number?.type === "required" && <Error>This Feild is required</Error>}
+                        </Grid>
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
@@ -96,12 +93,12 @@ export default function SignUpForm() {
                             />
                         </FormControl>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
-                            <InputLabel htmlFor="filled-adornment-password">Confirm Password</InputLabel>
+                            <InputLabel htmlFor="filled-adornment-confirm-password">Confirm Password</InputLabel>
                             <FilledInput
                                 id="filled-adornment-password"
                                 type={values.showPassword ? "text" : "password"}
                                 value={values.password}
-                                onChange={handleChangeConfirmPass("password")}
+                                onChange={handleChangeConfirmPass("Confrimpassword")}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -118,61 +115,60 @@ export default function SignUpForm() {
                         </FormControl>
                     </Box>
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
+                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard"  >
                             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-
-
                             <RadioGroup
                                 aria-labelledby="demo-radio-buttons-group-label"
                                 name="radio-buttons-group"
+                                row
                             >
-                                <Grid xs={12}>
-                                    <FormControlLabel {...register("female")} value="female" control={<Radio />} label="Female" />
-                                    <FormControlLabel {...register("male")} value="male" control={<Radio />} label="Male" />
-                                </Grid>
+                                <FormControlLabel {...register("female")} value="female" control={<Radio />} label="Female" />
+                                <FormControlLabel {...register("male")} value="male" control={<Radio />} label="Male" />
                             </RadioGroup>
                         </FormControl>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
+                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard" >
                             <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
-                            <FormControlLabel control={<Switch defaultChecked />} label="Active" />
+                            <FormControlLabel control={<Switch />} label="Active" />
                         </FormControl>
                     </Box>
                     <Box sx={{ display: 'flex' }}>
-                        <Grid lg={12}>
-                            <FormLabel component="legend">Choose Your Hobbies</FormLabel>
-                            <FormControlLabel
-                                {...register("Singing")}
-                                control={< Checkbox />} label="Singing"
-                            />
-                            <FormControlLabel
-                                {...register("bodyBuilding")}
-                                control={< Checkbox />} label="bodyBuilding"
-                            />
-                            <FormControlLabel
-                                {...register("Photography")}
-                                control={< Checkbox />} label="Photography"
-                            />
-                            <FormControlLabel
-                                {...register("Painting")}
-                                control={< Checkbox />} label="Painting"
-                            />
-                            <FormControlLabel
-                                {...register("dacing")}
-                                control={< Checkbox />} label="dacing"
-                            />
-                            <FormControlLabel
-                                {...register("Art and Craft")}
-                                control={< Checkbox />} label="Art and Craft"
-                            />
-                        </Grid>
+                        <FormControl variant="filled">
+                            <Grid>
+                                <FormLabel component="legend">Choose Your Hobbies</FormLabel>
+                                <FormControlLabel
+                                    {...register("Singing")}
+                                    control={< Checkbox />} label="Singing"
+                                />
+                                <FormControlLabel
+                                    {...register("bodyBuilding")}
+                                    control={< Checkbox />} label="bodyBuilding"
+                                />
+                                <FormControlLabel
+                                    {...register("Photography")}
+                                    control={< Checkbox />} label="Photography"
+                                />
+                                <FormControlLabel
+                                    {...register("Painting")}
+                                    control={< Checkbox />} label="Painting"
+                                />
+                                <FormControlLabel
+                                    {...register("dacing")}
+                                    control={< Checkbox />} label="dacing"
+                                />
+                                <FormControlLabel
+                                    {...register("Art and Craft")}
+                                    control={< Checkbox />} label="Art and Craft"
+                                />
+                            </Grid>
+                        </FormControl>
                     </Box>
-                    <FormControl>
-                        <InputLabel id="demo-simple-select-label">Eduction</InputLabel>
+                    <FormControl variant="filled">
+                        <InputLabel id="demo-simple-select-filled-label">Eduction</InputLabel>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={age}
-                            label="Eduction"
+                            // error
+                            labelId="demo-simple-select-filled-label"
+                            id="demo-simple-select-filled"
+                            value={Education}
                             onChange={handleDDL}
                         >
                             <MenuItem value={10}>BCA</MenuItem>
@@ -206,6 +202,7 @@ height:100%;
 weight:100%;
 padding: 3%;
 gap: 30px;
+justify-content: space-around;
 box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 `;
 const Header = styled.h1`
@@ -213,5 +210,7 @@ text-align: center;
 `;
 const SubHeader = styled.h4`
 text-align: center;
-
+`;
+const Error = styled.p`
+color: red;
 `;

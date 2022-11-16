@@ -7,7 +7,6 @@ import MoodIcon from '@mui/icons-material/Mood';
 import ModeIcon from '@mui/icons-material/Mode';
 import { useState } from 'react';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
-import { useRequired } from '../common/ts/useRequired';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -53,13 +52,12 @@ export default function EmpList() {
         <>
             <Header>Employer List</Header>
             <Container>
-                <Grid xs={12}>
                     <List dense={dense}>
                         {generate(
                             <ListItem
                                 secondaryAction={
                                     <>
-                                        <EditIcon />
+                                        <EditIcon  />
                                         <DeleteIcon onClick={handleClickOpen} />
                                         <Dialog
                                             open={open}
@@ -105,7 +103,6 @@ export default function EmpList() {
                             </ListItem>,
                         )}
                     </List>
-                </Grid>
             </Container >
         </>
     )

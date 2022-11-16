@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function EmpDetails() {
+export default function EditEmpDetails() {
   return (
     <div>EmpDetails</div>
   )

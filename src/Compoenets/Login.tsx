@@ -40,7 +40,6 @@ export default function LoginForm() {
     const onSubmit = (data: any) => {
         console.log(JSON.stringify(data));
         navigate('/LoggedIn')
-
     };
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {

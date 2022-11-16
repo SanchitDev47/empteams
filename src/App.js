@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import SignUp from "./Compoenets/SignUp";
+import Registeration from "./Compoenets/Registeration";
 import Login from "./Compoenets/Login";
 import EmpList from "./Compoenets/EmpList";
 import AppBar from "@mui/material/AppBar";
@@ -23,18 +23,18 @@ function App() {
     navigate("/addemp");
   };
 
-  const navigateToSignUP = () => {
-    navigate("/");
+  const navigateToRegisteration = () => {
+    navigate("/registeration");
   };
 
   const navigateToLogin = () => {
-    navigate("/login");
+    navigate("/");
   };
 
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Techovarya
@@ -51,22 +51,20 @@ function App() {
           </Toolbar>
         </AppBar>
 
-
-        {/*  */}
-        <AppBar position="static">
+        {/* <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Techovarya
             </Typography>
-            <Button onClick={navigateToSignUP} color="inherit">SignUp</Button>
+            <Button onClick={navigateToRegisteration} color="inherit">SignUp</Button>
             <Button onClick={navigateToLogin} color="inherit">Login</Button>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
       </Box>
 
       {/* Main compoenent Routes */}
       <Routes>
-        <Route path="/" element={<SignUp />} />
+        <Route path="/registeration" element={<Registeration />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/emplist" element={<EmpList />} />
         <Route path="/addemp" element={<AddEmp />} />

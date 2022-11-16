@@ -11,21 +11,10 @@ export default function AddEmp() {
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [age, setAge] = React.useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [values, setValues] = React.useState<State>({
-        amount: '',
+    const [values, setValues] = React.useState({
         password: '',
-        weight: '',
-        weightRange: '',
         showPassword: false,
     });
-
-    interface State {
-        amount: string;
-        password: string;
-        weight: string;
-        weightRange: string;
-        showPassword: boolean;
-    }
 
     //Custom Hooks
     // const validation = useRequired();
@@ -52,10 +41,10 @@ export default function AddEmp() {
             showPassword: !values.showPassword,
         });
     };
-    const handleChangePass = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangePass = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [prop]: event.target.value });
     };
-    const handleChangeConfirmPass = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChangeConfirmPass = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setValues({ ...values, [prop]: event.target.value });
     };
 
@@ -96,9 +85,9 @@ export default function AddEmp() {
                             />
                         </FormControl>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
-                            <InputLabel htmlFor="filled-adornment-password">Confirm Password</InputLabel>
+                            <InputLabel htmlFor="filled-adornment-Confirm-password">Confirm Password</InputLabel>
                             <FilledInput
-                                id="filled-adornment-password"
+                                id="filled-adornment-Confirm-password"
                                 type={values.showPassword ? "text" : "password"}
                                 value={values.password}
                                 onChange={handleChangeConfirmPass("password")}
@@ -126,7 +115,7 @@ export default function AddEmp() {
                                 aria-labelledby="demo-radio-buttons-group-label"
                                 name="radio-buttons-group"
                             >
-                                <Grid xs={12}>
+                                <Grid>
                                     <FormControlLabel {...register("female")} value="female" control={<Radio />} label="Female" />
                                     <FormControlLabel {...register("male")} value="male" control={<Radio />} label="Male" />
                                 </Grid>
@@ -138,7 +127,7 @@ export default function AddEmp() {
                         </FormControl>
                     </Box>
                     <Box sx={{ display: 'flex' }}>
-                        <Grid lg={12}>
+                        <Grid>
                             <FormLabel component="legend">Choose Your Hobbies</FormLabel>
                             <FormControlLabel
                                 {...register("Singing")}
