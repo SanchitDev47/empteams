@@ -1,5 +1,0 @@
-name="phone"
- inputRe=(register(
-   required: "Phone Number is required."
-error={Boolean(errors.phone)}
-helperText=errors.phone?.message}

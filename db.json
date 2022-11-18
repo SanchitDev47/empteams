@@ -1,0 +1,86 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "registration": [
+    {
+      "FirstName": "nnnnn",
+      "LastName": "barjibhe",
+      "email": "test@test.com",
+      "phone": "345345",
+      "Gender": "female",
+      "hobbieecheck": [
+        "Singing"
+      ],
+      "eduction": "B.Tech",
+      "discription": "sfasdfsdf",
+      "id": 1
+    },
+    {
+      "FirstName": "ffff",
+      "LastName": "barjdddibhe",
+      "email": "rest@test.com",
+      "phone": "3454345",
+      "Gender": "female",
+      "hobbieecheck": [
+        "Singing"
+      ],
+      "eduction": "M.Tech",
+      "discription": "sfasdsdfsdffsdf",
+      "id": 2
+    },
+    {
+      "FirstName": "ggg",
+      "LastName": "barjdddibhe",
+      "email": "best@test.com",
+      "phone": "3454345",
+      "Gender": "female",
+      "hobbieecheck": [
+        "Singing"
+      ],
+      "eduction": "M.Tech",
+      "discription": "sfasdsdfsdffsdf",
+      "id": 50052
+    },
+    {
+      "FirstName": "ff",
+      "LastName": "f",
+      "email": "test@test.com",
+      "phone": "6767",
+      "Gender": "female",
+      "hobbieecheck": [
+        "Singing"
+      ],
+      "eduction": "MCA",
+      "discription": "fghfghfgh",
+      "id": 50053
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "test@test1.com",
+      "phone": "2342342342",
+      "Gender": "female",
+      "hobbieecheck": [
+        "bodyBuilding"
+      ],
+      "eduction": "B.Tech",
+      "discription": "423423423423423",
+      "id": 50054
+    }
+  ]
+}

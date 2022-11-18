@@ -35,11 +35,7 @@ function App() {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="sticky">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Techovarya
-            </Typography>
-            <Button onClick={navigateToAddEmp} color="inherit">
+            {/* <Button onClick={navigateToAddEmp} color="inherit">
               Add Employers
             </Button>
             <Button onClick={navigateToEmpList} color="inherit">
@@ -49,9 +45,8 @@ function App() {
               LogOut
             </Button>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
-        {/* <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Techovarya
@@ -59,7 +54,7 @@ function App() {
             <Button onClick={navigateToRegisteration} color="inherit">SignUp</Button>
             <Button onClick={navigateToLogin} color="inherit">Login</Button>
           </Toolbar>
-        </AppBar> */}
+        </AppBar>
       </Box>
 
       {/* Main compoenent Routes */}
