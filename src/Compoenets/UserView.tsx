@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Typography, Button } from '@mui/material'
 import React from 'react'
 import { useNavigate } from 'react-router';
 
-export default function LoggedIn() {
+export default function UserView() {
     const navigate = useNavigate();
 
     

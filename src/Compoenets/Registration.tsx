@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
-import { FieldValues, useForm, } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { Email, Label, Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function Registration() {
@@ -9,7 +9,7 @@ export default function Registration() {
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [Education, setEducation] = React.useState('');
-    const { register, formState: { errors }, watch, handleSubmit } = useForm();
+    const { register, formState: { errors }, watch, handleSubmit, control, getValues } = useForm();
     const [values, setValues] = React.useState({
         password: '',
         confirmPassword: '',
@@ -34,25 +34,20 @@ export default function Registration() {
 
 
     const onSubmit = async (data: any) => {
-        const res = await fetch('http://localhost:5000/registration?email=' + data.email, {
+        let res = await fetch('http://localhost:5000/registration?email=' + data.email, {
             method: 'Get'
         })
-        const { password, confirmPassword } = values;
-        if (password === confirmPassword) {
-            let user = await res.json();
-            if (user.length > 0) {
-                alert("emp already existing")
-            } else {
-                fetch('http://localhost:5000/registration', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
-                }).then(() => {
-                    alert("newEmp Successfully Created")
-                })
-            }
+        let user = await res.json();
+        if (user.length > 0) {
+            alert("emp already existing")
         } else {
-            alert("Passwords don't match");
+            fetch('http://localhost:5000/registration', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            }).then(() => {
+                alert("newEmp Successfully Created")
+            })
         }
     }
 
@@ -71,16 +66,10 @@ export default function Registration() {
         });
     };
 
-    const handleChangePass = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
-    const handleChangeConfirmPass = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
 
     return (
         <>
-            <Button onClick={renderPostsByID}>fetch Data by ID</Button>
+            {/* <Button onClick={renderPostsByID}>fetch Data by ID</Button> */}
             <Header>Welcome To Techovarya</Header>
             <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                 <Box sx={{
@@ -97,79 +86,106 @@ export default function Registration() {
                     {/* name Field */}
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%', }}>
                         <Grid sx={{ width: '100%' }}>
-                            <TextField sx={{ width: '100%', }} {...register("FirstName", { required: "First Name is Required" })} name="FirstName" label="First Name" variant="standard" />
+                            <TextField sx={{ width: '100%', }} {...register("FirstName", { required: "First Name is Required" })} name="FirstName" label="First Name" variant="filled" />
                             {errors.FirstName && <p role="alert" style={{ color: "red" }}>{`${errors.FirstName.message}`}</p>}
                         </Grid>
                         <Grid sx={{ width: '100%' }}>
-                            <TextField sx={{ width: '100%', }} {...register("LastName", { required: "Last Name is Required" })} name="LastName" label="Last Name" variant="standard" />
+                            <TextField sx={{ width: '100%', }} {...register("LastName", { required: "Last Name is Required" })} name="LastName" label="Last Name" variant="filled" />
                             {errors.LastName && <p role="alert" style={{ color: "red" }}>{`${errors.LastName.message}`}</p>}
                         </Grid>
                     </Box>
+
                     {/* contact feild */}
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
                         <Grid sx={{ width: '100%' }}>
-                            <TextField sx={{ width: '100%' }} {...register("email", {
-                                required: "This field is required",
-                                pattern: {
-                                    value: /\S+@\S+\.\S+/,
-                                    message: "Entered value does not match email format"
-                                },
-                            },)} label="Email" type="email" variant="standard" />
+                            <TextField sx={{ width: '100%' }}
+                                {...register("email", {
+                                    required: "This field is required",
+                                    pattern: {
+                                        value: /\S+@\S+\.\S+/,
+                                        message: "Entered value does not match email format"
+                                    }
+                                },)} label="Email" type="email" variant="filled" />
+
                             {errors.email && <p role="alert" style={{ color: "red" }}>{`${errors.email.message}`}</p>}
                         </Grid>
                         <Grid sx={{ width: '100%' }}>
-                            <TextField sx={{ width: '100%' }} {...register("phone", { required: "phone is required" })} type="number" label="Phone" variant="standard" />
+                            <TextField sx={{ width: '100%' }} {...register("phone", {
+                     
+                                maxLength: {
+                                    value: 10,
+                                    message: "required 10 numbers"
+                                },
+                                minLength: {
+                                    value: 10,
+                                    message: "required 10 numbers"
+                                },
+                            })} type="number" label="Phone" variant="filled" />
                             {errors.phone && <p role="alert" style={{ color: "red" }}>{`${errors.phone.message}`}</p>}
                         </Grid>
                     </Box>
+
                     {/* password feild */}
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
+                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
                             <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-                            <FilledInput
-                                id="standard-adornment-password"
-                                type={values.showPassword ? "text" : "password"}
-                                value={values.password}
-                                onChange={handleChangePass("password")}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={() => handleClickShowPassword("showPassword", !values.showPassword)}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
+                            <Controller name="password" control={control} rules={{
+                                required: "this field is required"
+                            }} render={({
+                                field: { onChange, value },
+                            }) => <FilledInput
+                                    name='password'
+                                    id="filled-adornment-password"
+                                    type={values.showPassword ? "text" : "password"}
+                                    value={value}
+                                    onChange={onChange}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={() => handleClickShowPassword("showPassword", !values.showPassword)}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />} />
+                            {errors.password && <p role="alert" style={{ color: "red" }}>{`${errors.password.message}`}</p>}
                         </FormControl>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard">
+                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
                             <InputLabel htmlFor="filled-adornment-confirmPassword">Confirm Password</InputLabel>
-                            <FilledInput
-                                id="filled-adornment-password"
-                                type={values.showConfirmPassword ? "text" : "password"}
-                                value={values.confirmPassword}
-                                onChange={handleChangeConfirmPass("confirmPassword")}
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                        <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={() => handleClickShowPassword("showConfirmPassword", !values.showConfirmPassword)}
-                                            onMouseDown={handleMouseDownPassword}
-                                            edge="end"
-                                        >
-                                            {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
+                            <Controller name="confirmPassword" control={control} rules={{
+                                validate: value => value === getValues("password") || "Confirm Password doesn't match"
+                            }} render={({
+                                field: { onChange, value },
+                            }) =>
+
+                                <FilledInput
+                                    id="filled-adornment-password"
+                                    type={values.showConfirmPassword ? "text" : "password"}
+                                    value={value}
+                                    onChange={onChange}
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                aria-label="toggle password visibility"
+                                                onClick={() => handleClickShowPassword("showConfirmPassword", !values.showConfirmPassword)}
+                                                onMouseDown={handleMouseDownPassword}
+                                                edge="end"
+                                            >
+                                                {values.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />} />
+                            {errors.confirmPassword && <p role="alert" style={{ color: "red" }}>{`${errors.confirmPassword.message}`}</p>}
                         </FormControl>
                     </Box>
                     {/* gender radio button */}
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled"  >
+                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard"  >
                             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
                             <RadioGroup
                                 aria-labelledby="demo-radio-buttons-group-label"
@@ -179,7 +195,7 @@ export default function Registration() {
                                 <FormControlLabel {...register("Gender", { required: "select gender" })} name="Gender" value="female" control={<Radio />} label="Female" />
                                 <FormControlLabel {...register("Gender", { required: "select gender" })} name="Gender" value="male" control={<Radio />} label="Male" />
                             </RadioGroup>
-                            {errors.Gender && <p role="alert" style={{ color: "red" }}>{`${errors.Gender.message}`}</p>}
+                            {errors.radiobutton && <p role="alert" style={{ color: "red" }}>{`${errors.radiobutton.message}`}</p>}
 
                         </FormControl>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard" >
@@ -187,9 +203,10 @@ export default function Registration() {
                             <FormControlLabel control={<Switch />} label="Active" />
                         </FormControl>
                     </Box>
+
                     {/* hobbies checkbox */}
                     <Box sx={{ display: 'flex' }}>
-                        <FormControl variant="standard" >
+                        <FormControl variant="filled" >
                             <Grid>
                                 <FormLabel component="legend">Choose Your Hobbies</FormLabel>
                                 <FormControlLabel
@@ -221,13 +238,14 @@ export default function Registration() {
                         </FormControl>
                     </Box>
 
-                    <FormControl variant="standard">
-                        <InputLabel id="demo-simple-select-standard-label">Eduction</InputLabel>
+                    {/* eduction select input */}
+                    <FormControl variant="filled">
+                        <InputLabel id="demo-simple-select-filled-label">Eduction</InputLabel>
                         <Select
                             {...register("eduction", { required: "Choose stream" })}
                             name="eduction"
-                            labelId="demo-simple-select-standard-label"
-                            id="demo-simple-select-standard"
+                            labelId="demo-simple-select-filled-label"
+                            id="demo-simple-select-filled"
                             value={Education}
                             onChange={handleDDL}
                         >
@@ -241,7 +259,7 @@ export default function Registration() {
                         {errors.eduction && <p role="alert" style={{ color: "red" }}>{`${errors.eduction.message}`}</p>}
                     </FormControl>
 
-                    <FormControl variant="standard">
+                    <FormControl variant="filled">
                         <TextareaAutosize
                             style={{ height: '60px', width: '500' }}
                             placeholder="Enter your Discription"
@@ -249,7 +267,7 @@ export default function Registration() {
                             {...register("discription", {
                                 required: "This field is required",
                                 minLength: {
-                                    value: 1,
+                                    value: 5,
                                     message: "Minimum 100 characters required"
                                 },
                             },)}
@@ -259,7 +277,7 @@ export default function Registration() {
                     </FormControl>
 
                     <Button onClick={handleSubmit(onSubmit)} type='submit' variant="contained" color="primary">
-                        fetch Data by ID
+                        signUp
                     </Button>
                 </Box>
             </Grid>

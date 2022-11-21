@@ -18,160 +18,36 @@
   },
   "registration": [
     {
-      "FirstName": "nnnnn",
+      "FirstName": "sanchit",
       "LastName": "barjibhe",
-      "email": "test@test.com",
-      "phone": "345345",
-      "Gender": "female",
+      "email": "barjibhe98@gmail.com",
+      "phone": "9834345433",
+      "Gender": "male",
       "hobbieecheck": [
-        "Singing"
+        "bodyBuilding"
       ],
       "eduction": "B.Tech",
-      "discription": "sfasdfsdf",
+      "discription": "sdfasdfasdf",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
       "id": 1
-    },
+    }
+  ],
+  "Login" : [
     {
-      "FirstName": "ffff",
-      "LastName": "barjdddibhe",
-      "email": "rest@test.com",
-      "phone": "3454345",
-      "Gender": "female",
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "barjibhe98@gmail.com",
+      "phone": "9834345433",
+      "Gender": "male",
       "hobbieecheck": [
-        "Singing"
+        "bodyBuilding"
       ],
-      "eduction": "M.Tech",
-      "discription": "sfasdsdfsdffsdf",
+      "eduction": "B.Tech",
+      "discription": "sdfasdfasdf",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
       "id": 2
-    },
-    {
-      "FirstName": "ggg",
-      "LastName": "barjdddibhe",
-      "email": "best@test.com",
-      "phone": "3454345",
-      "Gender": "female",
-      "hobbieecheck": [
-        "Singing"
-      ],
-      "eduction": "M.Tech",
-      "discription": "sfasdsdfsdffsdf",
-      "id": 50052
-    },
-    {
-      "FirstName": "ff",
-      "LastName": "f",
-      "email": "test@test.com",
-      "phone": "6767",
-      "Gender": "female",
-      "hobbieecheck": [
-        "Singing"
-      ],
-      "eduction": "MCA",
-      "discription": "fghfghfgh",
-      "id": 50053
-    },
-    {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
-      "email": "test@test1.com",
-      "phone": "2342342342",
-      "Gender": "female",
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "B.Tech",
-      "discription": "423423423423423",
-      "id": 50054
-    },
-    {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
-      "email": "sdfsdfsd@test.com",
-      "phone": "234",
-      "Gender": "female",
-      "hobbieecheck": [
-        "Singing"
-      ],
-      "eduction": "B.Tech",
-      "discription": "sdf",
-      "id": 50055
-    },
-    {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
-      "email": "sdfsdf2sd@test.com",
-      "phone": "234",
-      "Gender": "female",
-      "hobbieecheck": [
-        "Singing"
-      ],
-      "eduction": "B.Tech",
-      "discription": "sdf",
-      "id": 50056
-    },
-    {
-      "FirstName": "sds",
-      "LastName": "ddf",
-      "email": "staff@fusetheme.com",
-      "phone": "34234",
-      "Gender": "male",
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "MCA",
-      "discription": "jhg",
-      "id": 50057
-    },
-    {
-      "FirstName": "Sanchit",
-      "LastName": "Barjibhe",
-      "email": "sanchit.b@techovarya.com",
-      "phone": "9850559909",
-      "Gender": "male",
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "MCA",
-      "discription": "kjdf",
-      "id": 50058
-    },
-    {
-      "FirstName": "Sanchit",
-      "LastName": "Barjibhe",
-      "email": "sanchit.d@techovarya.com",
-      "phone": "9850559909",
-      "Gender": "male",
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "MCA",
-      "discription": "kjdf",
-      "id": 50059
-    },
-    {
-      "FirstName": "Sanchit",
-      "LastName": "Barjibhe",
-      "email": "sanchit.r@techovarya.com",
-      "phone": "9850559909",
-      "Gender": "male",
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "MCA",
-      "discription": "kjdf",
-      "id": 50060
-    },
-    {
-      "FirstName": "ed",
-      "LastName": "sdf",
-      "email": "sanchit.t@techovarya.com",
-      "phone": "23423",
-      "Gender": "male",
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "BCA",
-      "discription": "dfsdf",
-      "id": 50061
     }
   ]
 }
