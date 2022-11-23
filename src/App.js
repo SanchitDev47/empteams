@@ -1,5 +1,12 @@
 import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+  Redirect,
+  Prompt
+} from "react-router-dom";
 import Registration from "./Compoenets/Registration";
 import Login from "./Compoenets/Login";
 import EmpList from "./Compoenets/EmpList";
@@ -11,8 +18,11 @@ import { Button } from "@mui/material";
 import "./App.css";
 import AddEmp from "./Compoenets/AddEmp";
 
-function App() {
+export default function App() {
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user-info"));
+  console.warn(user);
 
   const navigateToEmpList = () => {
     navigate("/emplist");
@@ -26,9 +36,17 @@ function App() {
   };
 
   const navigateToLogin = () => {
-    navigate("/");
+    navigate("*");
   };
+  function logout() {
+    localStorage.clear();
+    navigate("/");
+  }
+  const userSection = () => {
+    navigate("/addemp");
+    navigate("/emplist");
 
+  }
 
   return (
     <>
@@ -38,25 +56,48 @@ function App() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Techovarya
             </Typography>
-            <Button onClick={navigateToRegisteration} color="inherit">
-              SignUp
-            </Button>
-            <Button onClick={navigateToLogin} color="inherit">
-              Login
-            </Button>
+            {user ? (
+              <>
+                <Button onClick={navigateToAddEmp} color="inherit">
+                  Add employer
+                </Button>
+                <Button onClick={navigateToEmpList} color="inherit">
+                  Epmployer
+                </Button>
+                <Button onClick={logout} color="inherit">
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button onClick={navigateToRegisteration} color="inherit">
+                  SignUp
+                </Button>
+                <Button onClick={navigateToLogin} color="inherit">
+                  Login
+                </Button>
+              </>
+            )}
           </Toolbar>
         </AppBar>
       </Box>
 
       {/* Main compoenent Routes */}
-      <Routes>
-        <Route path="/registration" element={<Registration />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/emplist" element={<EmpList />} />
-        <Route path="/addemp" element={<AddEmp />} />
-      </Routes>
+      {user ? (
+        <>
+          <Routes>
+            <Route path="/emplist" element={<EmpList />} />
+            <Route path="/addemp"  element={<AddEmp />} />
+          </Routes>
+        </>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/registration" element={<Registration />} />
+            <Route path="*"  element={<Login />} />
+          </Routes>
+        </>
+      )}
     </>
   );
 }
-
-export default App;

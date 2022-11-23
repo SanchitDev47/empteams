@@ -39,7 +39,6 @@ export default function EmpList() {
         setOpen(false);
     };
     function navigateToEditEmp() {
-        // navigate('/EditEmp')
     }
     function generate(element: React.ReactElement) {
         return [0, 1, 2, 4, 5].map((value) =>

@@ -1,12 +1,9 @@
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { Route, Routes, useNavigate } from 'react-router';
 import styled from "styled-components";
-import AddEmp from './AddEmp';
-import EmpList from './EmpList';
-import UserView from './UserView';
 
 
 export default function LoginForm() {
@@ -19,8 +16,13 @@ export default function LoginForm() {
         weightRange: '',
         showPassword: false,
     });
-    const [LoggedIn, setLoggedIn] = useState(false);
     const navigate = useNavigate();
+
+useEffect(() => {
+    if(localStorage.getItem('user-info')){
+        navigate('/emplist')
+    }
+}, [])
 
 
     // Click Event Function
@@ -33,11 +35,13 @@ export default function LoginForm() {
         if (user.length > 0) {
             if (data.password == user[0].password) {
                 alert("User Successfully logged In")
+                localStorage.setItem('user-info',JSON.stringify(user))
                 navigate('/emplist')
             } else {
                 setError("password", { type: 'manual', message: 'Password is Wrong' })
             }
         } else{
+            setError("email", { type: 'manual', message: 'email does not exist' })
             alert("first create employer")
             navigate("/")
         }   
@@ -112,14 +116,6 @@ export default function LoginForm() {
                     </Button>
                 </Box>
             </Grid>
-
-            <Routes>
-                <Route path="/UserView" element={<UserView />} />
-                <Route path="/emplist" element={<EmpList />} />
-                <Route path="/addemp" element={<AddEmp />} />
-
-            </Routes>
-
         </>
     )
 }
