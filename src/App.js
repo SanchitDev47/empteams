@@ -12,8 +12,6 @@ import "./App.css";
 import AddEmp from "./Compoenets/AddEmp";
 
 function App() {
-  const [LoggedIn, setLoggedIn] = React.useState(false);
-
   const navigate = useNavigate();
 
   const navigateToEmpList = () => {
@@ -24,12 +22,13 @@ function App() {
   };
 
   const navigateToRegisteration = () => {
-    navigate("/");
+    navigate("/registration");
   };
 
   const navigateToLogin = () => {
-    navigate("/login");
+    navigate("/");
   };
+
 
   return (
     <>
@@ -51,8 +50,8 @@ function App() {
 
       {/* Main compoenent Routes */}
       <Routes>
-        <Route path="/" element={<Registration />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/" element={<Login />} />
         <Route path="/emplist" element={<EmpList />} />
         <Route path="/addemp" element={<AddEmp />} />
       </Routes>

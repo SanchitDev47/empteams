@@ -4,7 +4,7 @@ import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAuto
 import { useForm, Controller } from "react-hook-form";
 import { Email, Label, Visibility, VisibilityOff } from '@mui/icons-material';
 
-export default function Registration() {
+export default function EditEmp() {
 
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');

@@ -31,9 +31,59 @@
       "password": "Sanchit@123",
       "confirmPassword": "Sanchit@123",
       "id": 1
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "fakeDotNma@gmail.com",
+      "phone": "9834345433",
+      "Gender": "male",
+      "hobbieecheck": [
+        "bodyBuilding"
+      ],
+      "eduction": "B.Tech",
+      "discription": "sdfasdfasdf",
+      "password": "rate@123",
+      "confirmPassword": "rate@123",
+      "id": 2
+    },
+    {
+      "FirstName": "prathamesh",
+      "LastName": "bawer",
+      "email": "prathamesh23@gmail.com",
+      "phone": "8734983498",
+      "Gender": "male",
+      "hobbieecheck": [
+        "bodyBuilding"
+      ],
+      "eduction": "B.Tech",
+      "discription": "dfsdfsdf",
+      "password": "Sagar@123",
+      "confirmPassword": "Sagar@123",
+      "id": 3
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "barjibhe95@gmail.com",
+      "phone": "3452342343",
+      "Gender": "female",
+      "hobbieecheck": [
+        "Singing",
+        "bodyBuilding",
+        "Photography",
+        "Painting",
+        "dacing",
+        "Art and Craft"
+      ],
+      "eduction": "B.Tech",
+      "discription": "ghdfgdfgdfgdfg",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "id": 4
     }
   ],
-  "Login" : [
+  "Login": [
     {
       "FirstName": "sanchit",
       "LastName": "barjibhe",

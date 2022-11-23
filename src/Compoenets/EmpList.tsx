@@ -14,6 +14,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
+import EditEmp from './EditEmp';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -30,14 +31,16 @@ export default function EmpList() {
 
     const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
+    const handleDilogOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleDilogClose = () => {
         setOpen(false);
     };
-
+    function navigateToEditEmp() {
+        // navigate('/EditEmp')
+    }
     function generate(element: React.ReactElement) {
         return [0, 1, 2, 4, 5].map((value) =>
             React.cloneElement(element, {
@@ -52,57 +55,57 @@ export default function EmpList() {
         <>
             <Header>Employer List</Header>
             <Container>
-                    <List dense={dense}>
-                        {generate(
-                            <ListItem
-                                secondaryAction={
-                                    <>
-                                        <EditIcon  />
-                                        <DeleteIcon onClick={handleClickOpen} />
-                                        <Dialog
-                                            open={open}
-                                            TransitionComponent={Transition}
-                                            keepMounted
-                                            onClose={handleClose}
-                                            aria-describedby="alert-dialog-slide-description"
-                                        >
-                                            <DialogTitle>{"Confirmation"}</DialogTitle>
-                                            <DialogContent>
-                                                <DialogContentText id="alert-dialog-slide-description">
-                                                    Sure, You want to delete Employer
-                                                </DialogContentText>
-                                            </DialogContent>
-                                            <DialogActions>
-                                                <Button onClick={handleClose}>NO</Button>
-                                                <Button onClick={handleClose}>Sure</Button>
-                                            </DialogActions>
-                                        </Dialog>
-                                    </>
-                                }
-                            >
-                                <ListItemText
-                                    primary="#ID"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                                <ListItemText
-                                    primary="Full Name"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                                <ListItemText
-                                    primary="Eduction"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                                <ListItemText
-                                    primary="Email"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                                <ListItemText
-                                    primary="Status"
-                                    secondary={secondary ? 'Secondary text' : null}
-                                />
-                            </ListItem>,
-                        )}
-                    </List>
+                <List dense={dense}>
+                    {generate(
+                        <ListItem
+                            secondaryAction={
+                                <>
+                                    <EditIcon onClick={navigateToEditEmp} />
+                                    <DeleteIcon onClick={handleDilogOpen} />
+                                    <Dialog
+                                        open={open}
+                                        TransitionComponent={Transition}
+                                        keepMounted
+                                        onClose={handleDilogClose}
+                                        aria-describedby="alert-dialog-slide-description"
+                                    >
+                                        <DialogTitle>{"Confirmation"}</DialogTitle>
+                                        <DialogContent>
+                                            <DialogContentText id="alert-dialog-slide-description">
+                                                Sure, You want to delete Employer
+                                            </DialogContentText>
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button onClick={handleDilogClose}>NO</Button>
+                                            <Button onClick={handleDilogClose}>Sure</Button>
+                                        </DialogActions>
+                                    </Dialog>
+                                </>
+                            }
+                        >
+                            <ListItemText
+                                primary="#ID"
+                                secondary={secondary ? 'Secondary text' : null}
+                            />
+                            <ListItemText
+                                primary="Full Name"
+                                secondary={secondary ? 'Secondary text' : null}
+                            />
+                            <ListItemText
+                                primary="Eduction"
+                                secondary={secondary ? 'Secondary text' : null}
+                            />
+                            <ListItemText
+                                primary="Email"
+                                secondary={secondary ? 'Secondary text' : null}
+                            />
+                            <ListItemText
+                                primary="Status"
+                                secondary={secondary ? 'Secondary text' : null}
+                            />
+                        </ListItem>,
+                    )}
+                </List>
             </Container >
         </>
     )

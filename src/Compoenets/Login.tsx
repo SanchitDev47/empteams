@@ -1,7 +1,7 @@
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput } from '@mui/material';
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { Route, Routes, useNavigate } from 'react-router';
 import styled from "styled-components";
 import AddEmp from './AddEmp';
@@ -11,7 +11,7 @@ import UserView from './UserView';
 
 export default function LoginForm() {
     // const [LoggedIn, setLoggedIn] = React.useState(true);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, control, handleSubmit, formState: { errors }, setError } = useForm();
     const [values, setValues] = React.useState<any>({
         amount: '',
         password: '',
@@ -22,24 +22,25 @@ export default function LoginForm() {
     const [LoggedIn, setLoggedIn] = useState(false);
     const navigate = useNavigate();
 
-    const navigateToEmpList = () => {
-        navigate("/emplist");
-    };
 
     // Click Event Function
     const onSubmit = async (data: any) => {
-        const res = await fetch('http://localhost:5000/registration?email=' + data.email, {
+        const res = await fetch(`http://localhost:5000/registration?email=${data.email}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" },
         });
         let user = await res.json();
         if (user.length > 0) {
-            alert("User Successfully logged In")
-            navigate('/emplist')
-        } else {
-            navigate("/")
+            if (data.password == user[0].password) {
+                alert("User Successfully logged In")
+                navigate('/emplist')
+            } else {
+                setError("password", { type: 'manual', message: 'Password is Wrong' })
+            }
+        } else{
             alert("first create employer")
-        }
+            navigate("/")
+        }   
     };
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,41 +53,64 @@ export default function LoginForm() {
             showPassword: !values.showPassword,
         });
     };
-    const handleChange = (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
 
     return (
         <>
             <Header>Login With Techovarya</Header>
-            <Grid container spacing={1} sx={{ justifyContent: 'center', marginTop: '5%' }}>
-                <Form>
-                    <TextField sx={{ width: '100%', }} {...register("email")} label="Email" variant="filled" required />
-                    <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
-                        <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-                        <FilledInput
-                            id="filled-adornment-password"
-                            type={values.showPassword ? "text" : "password"}
-                            value={values.password}
-                            onChange={handleChange("password")}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
+            <Grid container spacing={1} sx={{ justifyContent: 'center', }}>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: '#FFFFFF',
+                    height: '100%',
+                    top: '40%',
+                    weight: '100%',
+                    padding: '3%',
+                    gap: '15px',
+                    boxShadow: ' 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)'
+                }}>
+                    <TextField sx={{ width: '100%', }}
+                        {...register("email", {
+                            required: "This field is required",
+                            pattern: {
+                                value: /\S+@\S+\.\S+/,
+                                message: "give email format"
                             }
-                        />
+                        },)} name="email" label="Email" type="email" variant="filled" />
+                    {errors.email && <p role="alert" style={{ color: "red" }}>{`${errors.email.message}`}</p>}
+
+                    <FormControl variant="filled">
+                        <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
+                        <Controller name="password" control={control} rules={{
+                            required: "this field is required",
+                        }} render={({
+                            field: { onChange, value },
+                        }) =>
+                            <FilledInput
+                                id="filled-adornment-password"
+                                type={values.showPassword ? "text" : "password"}
+                                value={value}
+                                onChange={onChange}
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                        >
+                                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                }
+                            />} />
+                        {errors.password && <p role="alert" style={{ color: "red" }}>{`${errors.password.message}`}</p>}
+
                     </FormControl>
-                    <Button onClick={handleSubmit(onSubmit)} variant="contained" color="primary">
+                    <Button onClick={handleSubmit(onSubmit)} type='submit' variant="contained" color="primary">
                         Login
                     </Button>
-                </Form>
+                </Box>
             </Grid>
 
             <Routes>
@@ -99,17 +123,6 @@ export default function LoginForm() {
         </>
     )
 }
-const Form = styled.form`
-display:flex;
-flex-direction:column;
-background: #FFFFFF;
-height:100%;
-top: 40%;
-weight:100%;
-padding: 3%;
-gap: 30px;
-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-`;
 const Header = styled.h1`
 text-align: center;
 `;
