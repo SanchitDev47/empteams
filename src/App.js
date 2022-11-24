@@ -22,7 +22,6 @@ export default function App() {
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user-info"));
-  console.warn(user);
 
   const navigateToEmpList = () => {
     navigate("/emplist");
@@ -36,7 +35,7 @@ export default function App() {
   };
 
   const navigateToLogin = () => {
-    navigate("*");
+    navigate("/");
   };
   function logout() {
     localStorage.clear();
@@ -94,7 +93,7 @@ export default function App() {
         <>
           <Routes>
             <Route path="/registration" element={<Registration />} />
-            <Route path="*"  element={<Login />} />
+            <Route path="/"  element={<Login />} />
           </Routes>
         </>
       )}

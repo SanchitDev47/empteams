@@ -1,71 +1,88 @@
-import * as React from 'react';
-import styled from "styled-components";
-import EditIcon from '@mui/icons-material/Edit';
-import { Avatar, List, ListItemAvatar, ListItem, Typography, Grid, IconButton, ListItemText, Button, Paper, TablePagination, TableContainer, Table, TableBody, TableRow, TableCell, TableHead, Box, Checkbox, FilledInput, FormControl, FormControlLabel, FormLabel, InputAdornment, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch, TextareaAutosize, TextField, SelectChangeEvent } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import MoodIcon from '@mui/icons-material/Mood';
-import ModeIcon from '@mui/icons-material/Mode';
-import { useState } from 'react';
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AppRegistrationSharpIcon from '@mui/icons-material/AppRegistrationSharp';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import { Button } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
-import EditEmp from './EditEmp';
+import React, { useEffect, useState } from "react";
 
-const Transition = React.forwardRef(function Transition(
-    props: TransitionProps & {
-        children: React.ReactElement<any, any>;
-    },
-    ref: React.Ref<unknown>
-) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
 export default function EmpList() {
-
-    const [visibility, setVisibility] = useState(false);
-
+    const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
 
-    const handleDilogOpen = () => {
-        setOpen(true);
-    };
+    useEffect(() => {
+        fetch('http://localhost:5000/registration')
+            .then(res => res.json())
+            .then(res => {
+                setData(res)
+            })
+    }, [])
 
-    const handleDilogClose = () => {
-        setOpen(false);
+    const Transition = React.forwardRef(function Transition(
+        props: TransitionProps & {
+            children: React.ReactElement<any, any>;
+        },
+        ref: React.Ref<unknown>
+    ) {
+        return <Slide direction="up" ref={ref} {...props} />;
+    });
+    
+    const  handleDilogBox = async (id: any) => {
+        setOpen(!open);
+        console.log(id)
+        let res = await fetch(`http://localhost:5000/registration?id=${id}`, {
+            method: 'GET'
+        })
+        let user = await res.json();
+        if (user.id == id) {
+            console.log('user id is delete')
+        }
     };
-    function navigateToEditEmp() {
-    }
-    function generate(element: React.ReactElement) {
-        return [0, 1, 2, 4, 5].map((value) =>
-            React.cloneElement(element, {
-                key: value,
-            }),
-        );
-    }
-    const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(false);
-
     return (
         <>
-            <Header>Employer List</Header>
-            <Container>
-                <List dense={dense}>
-                    {generate(
-                        <ListItem
-                            secondaryAction={
-                                <>
-                                    <EditIcon onClick={navigateToEditEmp} />
-                                    <DeleteIcon onClick={handleDilogOpen} />
-                                    <Dialog
+            <TableContainer component={Paper}>
+                <Table sx={{ width: '100%' }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>#IDs</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Eduction</TableCell>
+                            <TableCell>Email</TableCell>
+                            {/* <TableCell>Status</TableCell> */}
+                            <TableCell>Edit</TableCell>
+                            <TableCell>Delete</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {data.map((row: any, index: number) => (
+                            <TableRow
+                                key={index}
+                                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                            >
+                                <TableCell>{row.id}</TableCell>
+                                <TableCell component="th" scope="row">{row.FirstName}</TableCell>
+                                <TableCell>{row.eduction}</TableCell>
+                                <TableCell>{row.email}</TableCell>
+                                {/* <TableCell>{row.status}</TableCell> */}
+                                <TableCell><AppRegistrationSharpIcon /></TableCell>
+                                <TableCell>
+                                    <DeleteIcon onClick={() => handleDilogBox(row.id)} />
+                                    {open && <Dialog
                                         open={open}
                                         TransitionComponent={Transition}
-                                        keepMounted
-                                        onClose={handleDilogClose}
+                                        onClose={handleDilogBox}
                                         aria-describedby="alert-dialog-slide-description"
                                     >
                                         <DialogTitle>{"Confirmation"}</DialogTitle>
@@ -75,49 +92,18 @@ export default function EmpList() {
                                             </DialogContentText>
                                         </DialogContent>
                                         <DialogActions>
-                                            <Button onClick={handleDilogClose}>NO</Button>
-                                            <Button onClick={handleDilogClose}>Sure</Button>
+                                            <Button onClick={handleDilogBox}>NO</Button>
+                                            <Button onClick={handleDilogBox}>Sure</Button>
                                         </DialogActions>
-                                    </Dialog>
-                                </>
-                            }
-                        >
-                            <ListItemText
-                                primary="#ID"
-                                secondary={secondary ? 'Secondary text' : null}
-                            />
-                            <ListItemText
-                                primary="Full Name"
-                                secondary={secondary ? 'Secondary text' : null}
-                            />
-                            <ListItemText
-                                primary="Eduction"
-                                secondary={secondary ? 'Secondary text' : null}
-                            />
-                            <ListItemText
-                                primary="Email"
-                                secondary={secondary ? 'Secondary text' : null}
-                            />
-                            <ListItemText
-                                primary="Status"
-                                secondary={secondary ? 'Secondary text' : null}
-                            />
-                        </ListItem>,
-                    )}
-                </List>
-            </Container >
-        </>
-    )
-}
+                                    </Dialog>}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
 
-const Container = styled.div`
-display:flex;
-flex-direction:column;
-background: white;
-margin: 5% 5%;
-padding:2%;
-gap: 30px;
-`;
-const Header = styled.h1`
-text-align: center;
-`;
+
+        </>
+    );
+}

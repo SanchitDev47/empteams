@@ -21,14 +21,12 @@ export default function Registration() {
     const renderPostsByID = async (name: any) => {
         let res = await fetch('http://localhost:5000/registration/?Email=' + name);
         const posts = await res.json();
-        console.log(posts);
     }
 
     const renderPosts = async () => {
         let uri = 'http://localhost:5000/registration';
         const res = await fetch(uri);
         const posts = await res.json();
-        console.log(posts);
     }
 
     const onSubmit = async (data: any) => {
@@ -197,7 +195,7 @@ export default function Registration() {
                         </FormControl>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard" >
                             <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
-                            <FormControlLabel control={<Switch />} label="Active" />
+                            <FormControlLabel control={<Switch {...register("status")} />}  label="Active" />
                         </FormControl>
                     </Box>
 

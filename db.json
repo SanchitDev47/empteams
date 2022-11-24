@@ -23,6 +23,7 @@
       "email": "barjibhe98@gmail.com",
       "phone": "9834345433",
       "Gender": "male",
+      "status": "Active",
       "hobbieecheck": [
         "bodyBuilding"
       ],
@@ -33,11 +34,12 @@
       "id": 1
     },
     {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
-      "email": "fakeDotNma@gmail.com",
+      "FirstName": "Hemang",
+      "LastName": "Rathod",
+      "email": "hemangrathod24@gmail.com",
       "phone": "9834345433",
       "Gender": "male",
+      "status": "Active",
       "hobbieecheck": [
         "bodyBuilding"
       ],
@@ -48,11 +50,12 @@
       "id": 2
     },
     {
-      "FirstName": "prathamesh",
-      "LastName": "bawer",
-      "email": "prathamesh23@gmail.com",
+      "FirstName": "Rahi",
+      "LastName": "bhagat",
+      "email": "rahibhagat25@gmail.com",
       "phone": "8734983498",
       "Gender": "male",
+      "status": "Active",
       "hobbieecheck": [
         "bodyBuilding"
       ],
@@ -68,6 +71,7 @@
       "email": "barjibhe95@gmail.com",
       "phone": "3452342343",
       "Gender": "female",
+      "status": "Active",
       "hobbieecheck": [
         "Singing",
         "bodyBuilding",
@@ -76,28 +80,200 @@
         "dacing",
         "Art and Craft"
       ],
-      "eduction": "B.Tech",
+      "eduction": "MCA",
       "discription": "ghdfgdfgdfgdfg",
       "password": "Sanchit@123",
       "confirmPassword": "Sanchit@123",
       "id": 4
-    }
-  ],
-  "Login": [
+    },
     {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
-      "email": "barjibhe98@gmail.com",
-      "phone": "9834345433",
+      "FirstName": "Ranjendra",
+      "LastName": "Kohli",
+      "email": "rajendra23@gmail.com",
+      "phone": "9823342343",
       "Gender": "male",
+      "status": "Active",
       "hobbieecheck": [
-        "bodyBuilding"
+        "Singing",
+        "bodyBuilding",
+        "Photography"
       ],
       "eduction": "B.Tech",
-      "discription": "sdfasdfasdf",
+      "discription": "sfsdfsf",
+      "password": "Rajendra@123",
+      "confirmPassword": "Rajendra@123",
+      "id": 5
+    },
+    {
+      "FirstName": "rajesh",
+      "LastName": "waghle",
+      "email": "rajesh23@gmail.com",
+      "phone": "2398342398",
+      "Gender": [
+        "male",
+        "on"
+      ],
+      "status": "Active",
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "eduction": "Under-Graduation",
+      "discription": "sdfsfsf",
+      "password": "Rajesh@123",
+      "confirmPassword": "Rajesh@123",
+      "id": 6
+    },
+    {
+      "FirstName": "dfsdf",
+      "LastName": "sdfsdf",
+      "email": "sdfsdfsd@tes1t.com",
+      "phone": "2342342342",
+      "Gender": "male",
+      "status": "Active",
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "eduction": "Post-Graduation",
+      "discription": "sdfsdf",
       "password": "Sanchit@123",
       "confirmPassword": "Sanchit@123",
-      "id": 2
+      "id": 7
+    },
+    {
+      "FirstName": "sdfghj",
+      "LastName": "fgfghfgh",
+      "email": "sdfsdfsd@t1est.com",
+      "phone": "3434654534",
+      "Gender": "male",
+      "status": "Active",
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "eduction": "Under-Graduation",
+      "discription": "sdfsfsfsfsdf",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "id": 8
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "as",
+      "phone": "2342344565",
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "gender": "",
+      "confirmPassword": "Sacnhit@123",
+      "password": "Sacnhit@123",
+      "discription": "ssfasdfsdfsdf",
+      "eduction": "B.Tech",
+      "email": "barjibhe198@gmail.com",
+      "status": true,
+      "id": 9
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "as",
+      "phone": "2342344565",
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "gender": "",
+      "confirmPassword": "Sacnhit@123",
+      "password": "Sacnhit@123",
+      "discription": "ssfasdfsdfsdf",
+      "eduction": "B.Tech",
+      "email": "barjibhe19@gmail.com",
+      "status": true,
+      "id": 10
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "as",
+      "phone": "2342344565",
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "gender": "",
+      "confirmPassword": "Sacnhit@123",
+      "password": "Sacnhit@123",
+      "discription": "ssfasdfsdfsdf",
+      "eduction": "B.Tech",
+      "email": "barjibhe119@gmail.com",
+      "status": true,
+      "id": 11
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "as",
+      "phone": "2342344565",
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "gender": "",
+      "confirmPassword": "Sacnhit@123",
+      "password": "Sacnhit@123",
+      "discription": "ssfasdfsdfsdf",
+      "eduction": "B.Tech",
+      "email": "barjibhe1w9@gmail.com",
+      "status": true,
+      "id": 12
+    },
+    {
+      "FirstName": "hemant",
+      "LastName": "jani",
+      "email": "hemant140@gmail.com",
+      "phone": "3423234323",
+      "gender": null,
+      "status": true,
+      "hobbieecheck": [
+        "Photography",
+        "Painting"
+      ],
+      "eduction": "Post-Graduation",
+      "discription": "sdfasdfasdfasdf",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "id": 13
+    },
+    {
+      "FirstName": "gfhmjghj",
+      "LastName": "gfhgf",
+      "email": "sdfsdfsd@test.com",
+      "phone": "3453452345",
+      "Gender": "female",
+      "status": false,
+      "hobbieecheck": [
+        "Singing"
+      ],
+      "eduction": "Under-Graduation",
+      "discription": "sdfsdfsdfsdf",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "id": 14
+    },
+    {
+      "FirstName": "gfhmjghj",
+      "LastName": "gfhgf",
+      "email": "sdfsdfsd234@test.com",
+      "phone": "3453452345",
+      "Gender": "female",
+      "status": true,
+      "hobbieecheck": [
+        "Singing"
+      ],
+      "eduction": "Under-Graduation",
+      "discription": "sdfsdfsdfsdf",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "id": 15
     }
   ]
 }
