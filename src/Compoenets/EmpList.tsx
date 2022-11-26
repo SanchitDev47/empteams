@@ -13,43 +13,70 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { FormDataContext } from "../FormData";
+
+
 
 
 export default function EmpList() {
     const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
 
-    useEffect(() => {
-        fetch('http://localhost:5000/registration')
-            .then(res => res.json())
-            .then(res => {
-                setData(res)
-            })
-    }, [])
+    const { Provider } = FormDataContext;
 
+    const navigate = useNavigate();
     const Transition = React.forwardRef(function Transition(
         props: TransitionProps & {
             children: React.ReactElement<any, any>;
         },
         ref: React.Ref<unknown>
     ) {
-        return <Slide direction="up" ref={ref} {...props} />;
+        return <Slide direction="down" ref={ref} {...props} />;
     });
-    
-    const  handleDilogBox = async (id: any) => {
-        setOpen(!open);
-        console.log(id)
-        let res = await fetch(`http://localhost:5000/registration?id=${id}`, {
-            method: 'GET'
-        })
-        let user = await res.json();
-        if (user.id == id) {
-            console.log('user id is delete')
-        }
+    // const level = useContext(FormData);
+
+
+    // console.log(level);
+
+
+    const navigateToAddEmp = () => {
+        navigate('/editemp', { state: { query: 'FirstName ' } })
+
     };
+
+    useEffect(() => { getEmp(); }, [])
+
+    function getEmp() {
+        fetch('http://localhost:5000/emplist').then(result => result.json()).then(res => setData(res))
+    }
+
+    function handleConfirmation(id: number) {
+        fetch(`http://localhost:5000/emplist/${id}`, {
+            method: 'DELETE'
+        }).then((result) => {
+            result.json().then(() => {
+                setData(data?.filter((employee: { id: number; }) => employee.id !== id));
+            })
+        })
+        setOpen(false);
+    }
+
+    const handleDilogBox = () => { setOpen(!open); };
+    debugger;
+    function handleEditEmp(id: number) {
+        fetch(`http://localhost:5000/emplist/${id}`, {
+            method: 'GET'
+        }).then((result) => {
+            result.json().then(() => {
+                navigateToAddEmp();
+            })
+        })
+    }
+
     return (
         <>
             <TableContainer component={Paper}>
@@ -60,45 +87,46 @@ export default function EmpList() {
                             <TableCell>Name</TableCell>
                             <TableCell>Eduction</TableCell>
                             <TableCell>Email</TableCell>
-                            {/* <TableCell>Status</TableCell> */}
                             <TableCell>Edit</TableCell>
                             <TableCell>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {data.map((row: any, index: number) => (
-                            <TableRow
-                                key={index}
-                                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                            >
-                                <TableCell>{row.id}</TableCell>
-                                <TableCell component="th" scope="row">{row.FirstName}</TableCell>
-                                <TableCell>{row.eduction}</TableCell>
-                                <TableCell>{row.email}</TableCell>
-                                {/* <TableCell>{row.status}</TableCell> */}
-                                <TableCell><AppRegistrationSharpIcon /></TableCell>
-                                <TableCell>
-                                    <DeleteIcon onClick={() => handleDilogBox(row.id)} />
-                                    {open && <Dialog
-                                        open={open}
-                                        TransitionComponent={Transition}
-                                        onClose={handleDilogBox}
-                                        aria-describedby="alert-dialog-slide-description"
-                                    >
-                                        <DialogTitle>{"Confirmation"}</DialogTitle>
-                                        <DialogContent>
-                                            <DialogContentText id="alert-dialog-slide-description">
-                                                Sure, You want to delete Employer
-                                            </DialogContentText>
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button onClick={handleDilogBox}>NO</Button>
-                                            <Button onClick={handleDilogBox}>Sure</Button>
-                                        </DialogActions>
-                                    </Dialog>}
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                            {data.map((row: any, index: number) => (
+                                <TableRow
+                                    key={index}
+                                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                                >
+                                    <TableCell>{row.id}</TableCell>
+                                    <TableCell component="th" scope="row">{row.FirstName}</TableCell>
+                                    <TableCell>{row.eduction}</TableCell>
+                                    <TableCell>{row.email}</TableCell>
+
+                                    <TableCell><AppRegistrationSharpIcon onClick={() => handleEditEmp(row.id)} /></TableCell>
+                                    <TableCell>
+                                        <DeleteIcon onClick={() => handleDilogBox()} />
+
+                                        {open && <Dialog
+                                            open={open}
+                                            TransitionComponent={Transition}
+                                            onClose={handleDilogBox}
+                                            aria-describedby="alert-dialog-slide-description"
+                                        >
+                                            <DialogTitle>{"Confirmation"}</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText id="alert-dialog-slide-description">
+                                                    Sure, You want to Remove {row.FirstName}
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={handleDilogBox}>NO</Button>
+                                                <Button onClick={() => handleConfirmation(row.id)}>Sure</Button>
+                                            </DialogActions>
+                                        </Dialog>}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </Provider>
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -106,4 +134,8 @@ export default function EmpList() {
 
         </>
     );
+}
+
+function useContext(FormData: { new(form?: HTMLFormElement | undefined): FormData; prototype: FormData; }) {
+    throw new Error("Function not implemented.");
 }

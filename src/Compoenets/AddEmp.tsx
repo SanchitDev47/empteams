@@ -174,10 +174,10 @@ export default function AddEmp() {
                     </FormControl>
                     <TextareaAutosize
                         aria-label="empty textarea"
-                        placeholder="Enter your Discription"
+                        placeholder="Enter your Description"
                         maxRows={10}
                         style={{ height: '60px', width: '500' }}
-                        {...register("discription")}
+                        {...register("description")}
                     />
                     <Button type='submit' variant="contained" color="primary">
                         Sign Up

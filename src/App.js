@@ -1,11 +1,11 @@
-import React from "react";
+import { useState, useContext } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
   Redirect,
-  Prompt
+  Prompt,
 } from "react-router-dom";
 import Registration from "./Compoenets/Registration";
 import Login from "./Compoenets/Login";
@@ -17,11 +17,15 @@ import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import "./App.css";
 import AddEmp from "./Compoenets/AddEmp";
+import EditEmp from "./Compoenets/EditEmp";
 
-export default function App() {
+export default function App({ Data }) {
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user-info"));
+
+
+  const [View, setView] = useState(true);
 
   const navigateToEmpList = () => {
     navigate("/emplist");
@@ -29,12 +33,17 @@ export default function App() {
   const navigateToAddEmp = () => {
     navigate("/addemp");
   };
+  const navigateToEditEmp = () => {
+    navigate("/editemp");
+  };
 
   const navigateToRegisteration = () => {
+    setView(!View);
     navigate("/registration");
   };
 
   const navigateToLogin = () => {
+    setView(!View);
     navigate("/");
   };
   function logout() {
@@ -44,8 +53,7 @@ export default function App() {
   const userSection = () => {
     navigate("/addemp");
     navigate("/emplist");
-
-  }
+  };
 
   return (
     <>
@@ -69,12 +77,15 @@ export default function App() {
               </>
             ) : (
               <>
-                <Button onClick={navigateToRegisteration} color="inherit">
-                  SignUp
-                </Button>
-                <Button onClick={navigateToLogin} color="inherit">
-                  Login
-                </Button>
+                {View ? (
+                  <Button onClick={navigateToRegisteration} color="inherit">
+                    SignUp
+                  </Button>
+                ) : (
+                  <Button onClick={navigateToLogin} color="inherit">
+                    Login
+                  </Button>
+                )}
               </>
             )}
           </Toolbar>
@@ -85,15 +96,24 @@ export default function App() {
       {user ? (
         <>
           <Routes>
-            <Route path="/emplist" element={<EmpList />} />
-            <Route path="/addemp"  element={<AddEmp />} />
+            {View ? (
+              <>
+                <Route path="/emplist" element={<EmpList />} />
+                <Route path="/editemp" element={<EditEmp />} />
+              </>
+            ) : (
+              <>
+                <Route path="/addemp" element={<AddEmp />} />
+                <Route path="/editlist" element={<EditEmp />} />
+              </>
+            )}
           </Routes>
         </>
       ) : (
         <>
           <Routes>
             <Route path="/registration" element={<Registration />} />
-            <Route path="/"  element={<Login />} />
+            <Route path="/" element={<Login />} />
           </Routes>
         </>
       )}

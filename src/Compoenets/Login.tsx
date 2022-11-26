@@ -27,7 +27,7 @@ useEffect(() => {
 
     // Click Event Function
     const onSubmit = async (data: any) => {
-        const res = await fetch(`http://localhost:5000/registration?email=${data.email}`, {
+        const res = await fetch(`http://localhost:5000/emplist?email=${data.email}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" },
         });

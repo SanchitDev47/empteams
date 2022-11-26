@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { Email, Label, Visibility, VisibilityOff } from '@mui/icons-material';
+import {   useNavigate } from 'react-router';
 
 export default function Registration() {
 
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [Education, setEducation] = React.useState('');
-    const { register, formState: { errors }, watch, handleSubmit, control, getValues } = useForm();
+    const { register, formState: { errors }, watch, handleSubmit, reset, control, getValues } = useForm();
     const [values, setValues] = React.useState({
         password: '',
         confirmPassword: '',
@@ -17,32 +18,34 @@ export default function Registration() {
         showConfirmPassword: false,
     });
 
-    const id = new URLSearchParams(window.location.search).get('id');
-    const renderPostsByID = async (name: any) => {
-        let res = await fetch('http://localhost:5000/registration/?Email=' + name);
-        const posts = await res.json();
-    }
+    const navigate = useNavigate();
+    // const id = new URLSearchParams(window.location.search).get('id');
+    // const renderPostsByID = async (name: any) => {
+    //     let res = await fetch(`http://localhost:5000/emplist/${id}`);
+    //     const posts = await res.json();
+    // }
 
-    const renderPosts = async () => {
-        let uri = 'http://localhost:5000/registration';
-        const res = await fetch(uri);
-        const posts = await res.json();
-    }
+    // const renderPosts = async () => {
+    //     let uri = 'http://localhost:5000/emplist';
+    //     const res = await fetch(uri);
+    //     const posts = await res.json();
+    // }
 
     const onSubmit = async (data: any) => {
-        let res = await fetch('http://localhost:5000/registration?email=' + data.email, {
+        let res = await fetch('http://localhost:5000/emplist?email=' + data.email, {
             method: 'Get'
         })
         let user = await res.json();
         if (user.length > 0) {
             alert("emp already existing")
         } else {
-            fetch('http://localhost:5000/registration', {
+            fetch('http://localhost:5000/emplist', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             }).then(() => {
                 alert("newEmp Successfully Created")
+                navigate('/')
             })
         }
     }
@@ -62,10 +65,8 @@ export default function Registration() {
         });
     };
 
-
     return (
         <>
-            {/* <Button onClick={renderPostsByID}>fetch Data by ID</Button> */}
             <Header>Welcome To Techovarya</Header>
             <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                 <Box sx={{
@@ -195,7 +196,7 @@ export default function Registration() {
                         </FormControl>
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard" >
                             <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
-                            <FormControlLabel control={<Switch {...register("status")} />}  label="Active" />
+                            <FormControlLabel control={<Switch {...register("status")} />} label="Active" />
                         </FormControl>
                     </Box>
 
@@ -257,18 +258,18 @@ export default function Registration() {
                     <FormControl variant="filled">
                         <TextareaAutosize
                             style={{ height: '60px', width: '500' }}
-                            placeholder="Enter your Discription"
+                            placeholder="Enter your Description"
                             aria-label="empty textarea"
-                            {...register("discription", {
+                            {...register("description", {
                                 required: "This field is required",
                                 minLength: {
                                     value: 5,
                                     message: "Minimum 100 characters required"
                                 },
                             },)}
-                            name="discription"
+                            name="description"
                         />
-                        {errors.discription && <p role="alert" style={{ color: "red" }}>{`${errors.discription.message}`}</p>}
+                        {errors.description && <p role="alert" style={{ color: "red" }}>{`${errors.description.message}`}</p>}
                     </FormControl>
 
                     <Button onClick={handleSubmit(onSubmit)} type='submit' variant="contained" color="primary">
