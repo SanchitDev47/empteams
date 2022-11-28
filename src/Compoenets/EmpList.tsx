@@ -17,7 +17,8 @@ import { Button, TextField } from "@mui/material";
 import { TransitionProps } from "@mui/material/transitions";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { FormDataContext } from "../FormData";
+import { GlobalContext } from "../context/GlobalState";
+
 
 
 
@@ -25,8 +26,6 @@ import { FormDataContext } from "../FormData";
 export default function EmpList() {
     const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
-
-    const { Provider } = FormDataContext;
 
     const navigate = useNavigate();
     const Transition = React.forwardRef(function Transition(
@@ -37,16 +36,8 @@ export default function EmpList() {
     ) {
         return <Slide direction="down" ref={ref} {...props} />;
     });
-    // const level = useContext(FormData);
+    const { employer, editEmployer} = useContext(GlobalContext);
 
-
-    // console.log(level);
-
-
-    const navigateToAddEmp = () => {
-        navigate('/editemp', { state: { query: 'FirstName ' } })
-
-    };
 
     useEffect(() => { getEmp(); }, [])
 
@@ -66,13 +57,12 @@ export default function EmpList() {
     }
 
     const handleDilogBox = () => { setOpen(!open); };
-    debugger;
     function handleEditEmp(id: number) {
         fetch(`http://localhost:5000/emplist/${id}`, {
             method: 'GET'
         }).then((result) => {
             result.json().then(() => {
-                navigateToAddEmp();
+                navigate(`/editemp/${id}`)
             })
         })
     }
@@ -126,7 +116,6 @@ export default function EmpList() {
                                     </TableCell>
                                 </TableRow>
                             ))}
-                        </Provider>
                     </TableBody>
                 </Table>
             </TableContainer>
@@ -139,3 +128,7 @@ export default function EmpList() {
 function useContext(FormData: { new(form?: HTMLFormElement | undefined): FormData; prototype: FormData; }) {
     throw new Error("Function not implemented.");
 }
+function createContext(arg0: null) {
+    throw new Error("Function not implemented.");
+}
+

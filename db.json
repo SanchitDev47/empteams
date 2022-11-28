@@ -17,7 +17,6 @@
     "name": "typicode"
   },
   "emplist": [
-
     {
       "FirstName": "sanchit",
       "LastName": "barjibhe",
@@ -33,7 +32,58 @@
       "description": "sdfgdsfgdsfgsdfgsdfg",
       "password": "Sanchit@123",
       "confirmPassword": "Sanchit@123",
+      "id": 1
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "barjibhe938@gmail.com",
+      "phone": "2345234523",
+      "Gender": "male",
+      "status": false,
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "eduction": "B.Tech",
+      "description": "sdfgdsfgdsfgsdfgsdfg",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
       "id": 2
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "barjibhe918@gmail.com",
+      "phone": "2345234523",
+      "Gender": "male",
+      "status": false,
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "eduction": "B.Tech",
+      "description": "sdfgdsfgdsfgsdfgsdfg",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "id": 3
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "barjibhe928@gmail.com",
+      "phone": "2345234523",
+      "Gender": "male",
+      "status": false,
+      "hobbieecheck": [
+        "bodyBuilding",
+        "Photography"
+      ],
+      "eduction": "B.Tech",
+      "description": "sdfgdsfgdsfgsdfgsdfg",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "id": 4
     }
   ]
 }

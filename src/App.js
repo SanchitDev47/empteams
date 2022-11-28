@@ -99,7 +99,7 @@ export default function App({ Data }) {
             {View ? (
               <>
                 <Route path="/emplist" element={<EmpList />} />
-                <Route path="/editemp" element={<EditEmp />} />
+                <Route path="/editemp/:id" element={<EditEmp />} />
               </>
             ) : (
               <>

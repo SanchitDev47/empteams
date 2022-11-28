@@ -68,13 +68,13 @@ export default function Registration() {
     return (
         <>
             <Header>Welcome To Techovarya</Header>
-            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
+            <Grid container spacing={2} sx={{ justifyContent: 'center'  }}>
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',
                     background: '#FFFFFF',
                     height: '100%',
-                    width: '5b0%',
+                    width: '50%',
                     padding: '3%',
                     gap: '15px',
                     justifyContent: 'space-around',
@@ -127,7 +127,19 @@ export default function Registration() {
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="filled">
                             <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
                             <Controller name="password" control={control} rules={{
-                                required: "this field is required"
+                                required: "this field is required",
+                                minLength: {
+                                    value: 8,
+                                    message: "Minimum 8 characters required"
+                                },
+                                maxLength: {
+                                    value: 15,
+                                    message: "Maximum 15 characters are allowed"
+                                },
+                                pattern: {
+                                    value: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}/,
+                                    message: "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 special characters and 1 number"
+                                }
                             }} render={({
                                 field: { onChange, value },
                             }) => <FilledInput
