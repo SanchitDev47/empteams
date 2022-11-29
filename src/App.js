@@ -18,12 +18,12 @@ import { Button } from "@mui/material";
 import "./App.css";
 import AddEmp from "./Compoenets/AddEmp";
 import EditEmp from "./Compoenets/EditEmp";
+// import { GlobalProvider } from "./context/GlobalState";
 
 export default function App({ Data }) {
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user-info"));
-
 
   const [View, setView] = useState(true);
 
@@ -93,30 +93,32 @@ export default function App({ Data }) {
       </Box>
 
       {/* Main compoenent Routes */}
-      {user ? (
-        <>
-          <Routes>
-            {View ? (
-              <>
-                <Route path="/emplist" element={<EmpList />} />
-                <Route path="/editemp/:id" element={<EditEmp />} />
-              </>
-            ) : (
-              <>
-                <Route path="/addemp" element={<AddEmp />} />
-                <Route path="/editlist" element={<EditEmp />} />
-              </>
-            )}
-          </Routes>
-        </>
-      ) : (
-        <>
-          <Routes>
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/" element={<Login />} />
-          </Routes>
-        </>
-      )}
+      {/* <GlobalProvider> */}
+        {user ? (
+          <>
+            <Routes>
+              {View ? (
+                <>
+                  <Route path="/emplist" element={<EmpList />} />
+                  <Route path="/editemp/:id" element={<EditEmp />} />
+                </>
+              ) : (
+                <>
+                  <Route path="/addemp" element={<AddEmp />} />
+                  <Route path="/editlist" element={<EditEmp />} />
+                </>
+              )}
+            </Routes>
+          </>
+        ) : (
+          <>
+            <Routes>
+              <Route path="/registration" element={<Registration />} />
+              <Route path="/" element={<Login />} />
+            </Routes>
+          </>
+        )}
+      {/* </GlobalProvider> */}
     </>
   );
 }

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useLocation, useParams } from 'react-router';
-import { GlobalContext } from '../context/GlobalState';
+// import { GlobalContext } from '../context/GlobalState';
 
 export default function EditEmp() {
     type FormInputs = {
@@ -22,7 +22,7 @@ export default function EditEmp() {
         radiobutton: string;
 
     };
-   
+
     const params = useParams();
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
@@ -35,6 +35,15 @@ export default function EditEmp() {
         showConfirmPassword: false,
     });
 
+    // const { editEmp } = useContext(GlobalContext);
+    
+    const [selectedNotes, setselectedNotes] = useState({
+        id: '',
+        title: '',
+        description: '',
+        date: '',
+    });
+
     const onSubmit = async (data: any) => {
         let res = await fetch('http://localhost:5000/emplist?email=' + data.email, {
             method: 'GET'
@@ -43,8 +52,8 @@ export default function EditEmp() {
         if (user.length > 0) {
             alert("emp already existing")
         } else {
-            fetch('http://localhost:5000/emplist', {
-                method: 'POST',
+            fetch('http://localhost:5000/emplist/1', {
+                method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             }).then(() => {

@@ -37,10 +37,18 @@ export default function Registration() {
         })
         let user = await res.json();
         if (user.length > 0) {
+            fetch('http://localhost:5000/emplist/1', {
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            }).then(() => {
+                alert("newEmp Successfully Created")
+                navigate('/')
+            })
             alert("emp already existing")
         } else {
-            fetch('http://localhost:5000/emplist', {
-                method: 'POST',
+            fetch('http://localhost:5000/emplist/1', {
+                method: 'PUT',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             }).then(() => {

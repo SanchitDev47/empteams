@@ -1,7 +1,5 @@
-import { Notes } from "@mui/icons-material";
 import { createContext, useReducer } from "react";
 import appReducer from "./AppReducer";
-
 
 const initialState: any = {
     employer: [],
@@ -13,7 +11,14 @@ export const GlobalProvider = ({ children }: any) => {
 
     const [state, dispatch] = useReducer(appReducer, initialState);
 
-    function editEmployer(emp: any) {
+    function editEmp(id: any) {
+        dispatch({
+            type: "EDIT_EMPLOYER",
+            payload: id,
+        })
+    }
+
+    function addEmp(emp: any) {
         dispatch({
             type: "UPDATE_EMPLOYER",
             payload: emp,
@@ -21,7 +26,12 @@ export const GlobalProvider = ({ children }: any) => {
     }
 
     return (
-        <GlobalContext.Provider value={{employer: state.employer, editEmployer,}}>
+        <GlobalContext.Provider 
+        value={{
+            employer: state.employer, 
+            editEmp,
+            addEmp,
+        }}>
             {children}
         </GlobalContext.Provider>
     )
