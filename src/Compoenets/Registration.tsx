@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { Email, Label, Visibility, VisibilityOff } from '@mui/icons-material';
-import {   useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 export default function Registration() {
 
@@ -37,18 +37,11 @@ export default function Registration() {
         })
         let user = await res.json();
         if (user.length > 0) {
-            fetch('http://localhost:5000/emplist/1', {
-                method: 'PUT',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            }).then(() => {
-                alert("newEmp Successfully Created")
-                navigate('/')
-            })
             alert("emp already existing")
+            navigate('/')
         } else {
-            fetch('http://localhost:5000/emplist/1', {
-                method: 'PUT',
+            fetch('http://localhost:5000/emplist', {
+                method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             }).then(() => {
@@ -76,7 +69,7 @@ export default function Registration() {
     return (
         <>
             <Header>Welcome To Techovarya</Header>
-            <Grid container spacing={2} sx={{ justifyContent: 'center'  }}>
+            <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                 <Box sx={{
                     display: 'flex',
                     flexDirection: 'column',

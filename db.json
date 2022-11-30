@@ -18,90 +18,22 @@
   },
   "emplist": [
     {
-      "FirstName": "sanchit sanchit",
-      "LastName": "dgfljsdfjkasjfl",
-      "email": "barjibhe98@gmail.com",
-      "phone": "1234567890",
-      "Gender": "female",
-      "status": true,
-      "hobbieecheck": [
-        "Painting",
-        "dacing",
-        "Art and Craft"
-      ],
-      "eduction": "M.Tech",
-      "description": "jklkljkljkljkljlkjkl",
-      "password": "Rahi123123",
-      "confirmPassword": "Rahi123123",
       "id": 1
     },
     {
       "FirstName": "sanchit",
       "LastName": "barjibhe",
-      "email": "barjibhe938@gmail.com",
-      "phone": "2345234523",
+      "email": "ritwikmukhopadhyay@gmail.com",
+      "phone": "2342347664",
       "Gender": "male",
-      "status": false,
+      "status": true,
       "hobbieecheck": [
-        "bodyBuilding",
         "Photography"
       ],
-      "eduction": "B.Tech",
-      "description": "sdfgdsfgdsfgsdfgsdfg",
+      "eduction": "Under-Graduation",
+      "description": "sfsfasdfsfsdfsdsdf",
       "password": "Sanchit@123",
       "confirmPassword": "Sanchit@123",
-      "id": 2
-    },
-    {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
-      "email": "barjibhe918@gmail.com",
-      "phone": "2345234523",
-      "Gender": "male",
-      "status": false,
-      "hobbieecheck": [
-        "bodyBuilding",
-        "Photography"
-      ],
-      "eduction": "B.Tech",
-      "description": "sdfgdsfgdsfgsdfgsdfg",
-      "password": "Sanchit@123",
-      "confirmPassword": "Sanchit@123",
-      "id": 3
-    },
-    {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
-      "email": "barjibhe928@gmail.com",
-      "phone": "2345234523",
-      "Gender": "male",
-      "status": false,
-      "hobbieecheck": [
-        "bodyBuilding",
-        "Photography"
-      ],
-      "eduction": "B.Tech",
-      "description": "sdfgdsfgdsfgsdfgsdfg",
-      "password": "Sanchit@123",
-      "confirmPassword": "Sanchit@123",
-      "id": 4
-    },
-    {
-      "FirstName": "sanchit2323",
-      "LastName": "barjibhe",
-      "email": "barjibhe981@gmail.com",
-      "phone": "",
-      "Gender": "male",
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "B.Tech",
-      "description": "sdfsdfsdfsdsd",
-      "password": "test@123",
-      "confirmPassword": "test@123",
-      "id": 5
-    },
-    {
       "id": 2
     }
   ]

@@ -25,13 +25,21 @@ export const GlobalProvider = ({ children }: any) => {
         })
     }
 
+    function getOneEmp(id: any) {
+        dispatch({
+            type: "GET_ONE_EMP",
+            payload: id,
+        })
+    }
+
     return (
         <GlobalContext.Provider 
-        value={{
+        value={{ 
             employer: state.employer, 
-            editEmp,
+            editEmp, 
             addEmp,
-        }}>
+            getOneEmp,
+            }}>
             {children}
         </GlobalContext.Provider>
     )

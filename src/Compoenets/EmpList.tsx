@@ -28,10 +28,9 @@ export default function EmpList() {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
     useEffect(() => { getEmp(); }, [])
-    const [selectedNotes, setselectedNotes] = useState({ id: ''});
 
     const { editEmp, employer } = useContext(GlobalContext);
-// 
+    // 
     const Transition = React.forwardRef(function Transition(
         props: TransitionProps & {
             children: React.ReactElement<any, any>;
@@ -60,16 +59,20 @@ export default function EmpList() {
     }
 
 
-    const handleDilogBox = () => { 
-        setOpen(!open); 
+    const handleDilogBox = () => {
+        setOpen(!open);
     };
 
     function handleEditEmp(id: number) {
+        const dataEmp = fetch(`http://localhost:5000/emplist/${id}`, {
+            method: 'GET'
+        })
+        // .then(() => (dataEmp.json())).then(() => {console.log(dataEmp)})
+        console.log(dataEmp);
         navigate(`/editemp/${id}`)
         editEmp(id);
-        }
-        
-        
+    }
+
     return (
         <>
             <TableContainer component={Paper}>
