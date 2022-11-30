@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useLocation, useParams } from 'react-router';
-import { GlobalContext } from '../context/GlobalState';
 // import { GlobalContext } from '../context/GlobalState';
 
-export default function EditEmp(route: { employer: any; }) {
+export default function EditEmp() {
     type FormInputs = {
         FirstName: string;
         LastName: string;
@@ -36,49 +35,32 @@ export default function EditEmp(route: { employer: any; }) {
         showConfirmPassword: false,
     });
 
-    const { employer, getOneEmp } = useContext(GlobalContext);
-
-    const [selectedEmp, setselectedEmp] = useState({
+    // const { editEmp } = useContext(GlobalContext);
+    
+    const [selectedNotes, setselectedNotes] = useState({
         id: '',
         title: '',
         description: '',
         date: '',
     });
 
-    useEffect(() => {
-        getEmpData(employer)
-    }, [])
-
-    async function getEmpData(employer: { id: any }) {
-        let response = await fetch(`http://localhost:5000/emplist/${employer}`, {
+    const onSubmit = async (data: any) => {
+        let res = await fetch('http://localhost:5000/emplist?email=' + data.email, {
             method: 'GET'
         })
-        const data = await response.json();
-        console.log(data);
+        let user = await res.json();
+        if (user.length > 0) {
+            alert("emp already existing")
+        } else {
+            fetch('http://localhost:5000/emplist/1', {
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            }).then(() => {
+                alert("newEmp Successfully Created")
+            })
+        }
     }
-    const onSubmit = async (data: any) => {
-        fetch(`http://localhost:5000/emplist/${}`, {
-            method: 'PUT',
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        }).then(() => {
-            alert("newEmp Successfully Created")
-        })
-    }
-
-    // async function getEmpData() {
-    //     const currentEmpId = route.match.params.id;
-    //     console.log(`data is ${currentEmpId}`);
-    //     let response = await fetch(`http://localhost:5000/emplist` + employer);
-    //     const data = response.json();
-    //     if (!response.ok) {
-    //         console.log('error fetching data');
-    //     }
-    //     console.log(employer);
-    //     getOneEmp(data);
-    // }
-
-
 
     const handleDDL = (event: SelectChangeEvent) => {
         setEducation(event.target.value as string);
@@ -94,7 +76,6 @@ export default function EditEmp(route: { employer: any; }) {
             [prop]: value,
         });
     };
-
     const getAllDataFromList = async (params: any) => {
         params = await fetch('http://localhost:5000/editemp/', {
             method: 'GET'

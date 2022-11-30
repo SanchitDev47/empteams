@@ -18,6 +18,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { GlobalContext } from "../context/GlobalState";
+import { Link } from "react-router-dom";
 
 
 
@@ -28,9 +29,10 @@ export default function EmpList() {
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
     useEffect(() => { getEmp(); }, [])
+    const [selectedNotes, setselectedNotes] = useState({ id: ''});
 
     const { editEmp, employer } = useContext(GlobalContext);
-    // 
+// 
     const Transition = React.forwardRef(function Transition(
         props: TransitionProps & {
             children: React.ReactElement<any, any>;
@@ -40,11 +42,23 @@ export default function EmpList() {
         return <Slide direction="down" ref={ref} {...props} />;
     });
 
-
-    function getEmp() {
-        fetch('http://localhost:5000/emplist')
-            .then(result => result.json())
-            .then(res => setData(res))
+    async function getEmps() {
+        debugger;
+        await fetch(`http://localhost:5000/emplist`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                debugger;
+                // addAllEmp(data);
+                setData(data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     function handleConfirmation(id: number) {
@@ -59,8 +73,8 @@ export default function EmpList() {
     }
 
 
-    const handleDilogBox = () => {
-        setOpen(!open);
+    const handleDilogBox = () => { 
+        setOpen(!open); 
     };
 
     function handleEditEmp(id: number) {
@@ -71,8 +85,9 @@ export default function EmpList() {
         console.log(dataEmp);
         navigate(`/editemp/${id}`)
         editEmp(id);
-    }
-
+        }
+        
+        
     return (
         <>
             <TableContainer component={Paper}>
