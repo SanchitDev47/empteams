@@ -24,6 +24,13 @@ export const GlobalProvider = ({ children }: any) => {
             payload: emp,
         })
     }
+    
+  function addAllEmps(emps: any) {
+    dispatch({
+      type: 'ADD_ALL_NOTES',
+      payload: emps,
+    });
+  }
 
     return (
         <GlobalContext.Provider 
@@ -31,6 +38,7 @@ export const GlobalProvider = ({ children }: any) => {
             employer: state.employer, 
             editEmp,
             addEmp,
+            addAllEmps
         }}>
             {children}
         </GlobalContext.Provider>

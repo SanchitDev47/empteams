@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useLocation, useParams } from 'react-router';
+import { GlobalContext } from '../context/GlobalState';
 // import { GlobalContext } from '../context/GlobalState';
 
-export default function EditEmp() {
+export default function EditEmp(route: { match: { params: { id: any; }; }; }) {
     type FormInputs = {
         FirstName: string;
         LastName: string;
@@ -35,8 +36,8 @@ export default function EditEmp() {
         showConfirmPassword: false,
     });
 
-    // const { editEmp } = useContext(GlobalContext);
-    
+    const { editEmp } = useContext(GlobalContext);
+
     const [selectedNotes, setselectedNotes] = useState({
         id: '',
         title: '',
@@ -44,24 +45,36 @@ export default function EditEmp() {
         date: '',
     });
 
-    const onSubmit = async (data: any) => {
-        let res = await fetch('http://localhost:5000/emplist?email=' + data.email, {
-            method: 'GET'
-        })
-        let user = await res.json();
-        if (user.length > 0) {
-            alert("emp already existing")
-        } else {
-            fetch('http://localhost:5000/emplist/1', {
-                method: 'PUT',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            }).then(() => {
-                alert("newEmp Successfully Created")
-            })
-        }
-    }
 
+    useEffect(() => {
+        getData();
+        //eslint-disable-next-line
+    }, []);
+
+    //API CALLS
+    // async function getNotesData() {
+    //     const currentNoteId = route.match.params.id;
+    //     let response = await fetch(currentNoteId);
+    //     const data = response.json();
+    //     if (!response.ok) {
+    //         console.log('error fetching data');
+    //     }
+    //     getOneNote(data);
+    //     const selectedNote = emps.find((note) => currentNoteId === note._id);
+    //     setselectedNotes(selectedNote);
+    // }
+
+
+    //     const onSubmit = async (data: any) => {
+    //         fetch(`http://localhost:5000/emplist/${id}`, {
+    //             method: 'PUT',
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify(data),
+    //         })
+    //     }
+    // }
+
+    //UI FUNCATIONALITY
     const handleDDL = (event: SelectChangeEvent) => {
         setEducation(event.target.value as string);
     };
@@ -76,13 +89,6 @@ export default function EditEmp() {
             [prop]: value,
         });
     };
-    const getAllDataFromList = async (params: any) => {
-        params = await fetch('http://localhost:5000/editemp/', {
-            method: 'GET'
-        })
-        let user = await params.json();
-        console.log(user.length)
-    }
 
     return (
         <>
