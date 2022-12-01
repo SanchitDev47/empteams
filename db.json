@@ -18,22 +18,40 @@
   },
   "emplist": [
     {
+      "FirstName": "techovarya",
+      "LastName": "solution",
+      "email": "sanchit@techovarya.com",
+      "phone": "1234679132",
+      "gender": "female",
+      "status": true,
+      "hobbieecheck": [
+        "Singing",
+        "bodyBuilding",
+        "Photography",
+        "Painting"
+      ],
+      "eduction": "B.Tech",
+      "description": "sjfklsjfs sf sfsfs flsd fds fl",
+      "password": "Sanchita@123",
+      "confirmPassword": "Sanchita@123",
       "id": 1
     },
     {
-      "FirstName": "sanchit",
-      "LastName": "barjibhe",
+      "FirstName": "hemang",
+      "LastName": "techovarya",
       "email": "ritwikmukhopadhyay@gmail.com",
-      "phone": "2342347664",
-      "Gender": "male",
-      "status": true,
+      "phone": "1234678901",
       "hobbieecheck": [
-        "Photography"
+        "Singing",
+        "bodyBuilding",
+        "Photography",
+        "dacing"
       ],
-      "eduction": "Under-Graduation",
-      "description": "sfsfasdfsfsdfsdsdf",
-      "password": "Sanchit@123",
-      "confirmPassword": "Sanchit@123",
+      "eduction": "B.Tech",
+      "description": "wowre wre wer weprw rwo er",
+      "password": "Rushita@123",
+      "confirmPassword": "Rushita@123",
+      "gender": "male",
       "id": 2
     }
   ]

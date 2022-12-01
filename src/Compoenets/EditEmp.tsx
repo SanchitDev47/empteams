@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useLocation, useParams } from 'react-router';
+import { useLocation, useParams, useNavigate } from 'react-router';
 import { GlobalContext } from '../context/GlobalState';
 // import { GlobalContext } from '../context/GlobalState';
 
@@ -15,17 +15,19 @@ export default function EditEmp(route: { employer: any; }) {
         phone: string;
         password: string;
         hobbies: string;
-        Gender: string;
+        gender: string;
         hobbieecheck: string;
         email: string;
         confirmPassword: string;
         description: string;
         radiobutton: string;
-
     };
-    const { register, formState: { errors }, watch, handleSubmit, reset, control, getValues } = useForm<FormInputs>();
 
-    const [selectEmp, setSelectedEmp] = useState([]);
+    const { register, formState: { errors }, handleSubmit, control, setValue, getValues } = useForm<FormInputs>({});
+
+    const [selectEmp, setSelectedEmp] = useState<any>();
+
+    const navigate = useNavigate();
 
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
@@ -39,13 +41,6 @@ export default function EditEmp(route: { employer: any; }) {
 
     const { employer, getOneEmp } = useContext(GlobalContext);
 
-    const [selectedNotes, setselectedNotes] = useState({
-        id: '',
-        F: '',
-        description: '',
-        date: '',
-    });
-
     useEffect(() => {
         getEmpData(employer)
     }, [])
@@ -56,16 +51,28 @@ export default function EditEmp(route: { employer: any; }) {
         })
         const data = await response.json();
         console.log(data);
+        setValue("FirstName", data.FirstName)
+        setValue("LastName", data.LastName)
+        setValue("email", data.email)
+        setValue("password", data.password)
+        setValue("confirmPassword", data.confirmPassword)
+        setValue("phone", data.phone)
+        setValue("description", data.description)
+        //not settel   
+        setValue("gender", data?.gender)
+        setValue("hobbieecheck", data?.hobbieecheck)
+        setValue("eduction", data.eduction)
+        setSelectedEmp(data)
     }
 
     const onSubmit = async (route: any) => {
-        debugger;
-        fetch(`http://localhost:5000/emplist/${route}`, {
+        fetch(`http://localhost:5000/emplist/${employer}`, {
             method: 'PUT',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(route),
         }).then(() => {
-            console.log('scucess')
+            navigate('/emplist')
+            console.log('sccucess')
         })
     }
 
@@ -86,7 +93,6 @@ export default function EditEmp(route: { employer: any; }) {
 
     return (
         <>
-            {/* <Button onClick={renderPostsByID}>fetch Data by ID</Button> */}
             <Header>Edit Employer</Header>
             <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                 <Box sx={{
@@ -103,11 +109,11 @@ export default function EditEmp(route: { employer: any; }) {
                     {/* name Field */}
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%', }}>
                         <Grid sx={{ width: '100%' }}>
-                            <TextField sx={{ width: '100%', }} {...register("FirstName", { required: "First Name is Required" })} name="FirstName" label="First Name" variant="filled" />
+                            <TextField sx={{ width: '100%', }} InputLabelProps={{ shrink: true }} {...register("FirstName", { required: "First Name is Required" })} name="FirstName" label="First Name" variant="filled" />
                             {errors.FirstName && <p role="alert" style={{ color: "red" }}>{`${errors.FirstName.message}`}</p>}
                         </Grid>
                         <Grid sx={{ width: '100%' }}>
-                            <TextField sx={{ width: '100%', }} {...register("LastName", { required: "Last Name is Required" })} name="LastName" label="Last Name" variant="filled" />
+                            <TextField sx={{ width: '100%', }} InputLabelProps={{ shrink: true }} {...register("LastName", { required: "Last Name is Required" })} name="LastName" label="Last Name" variant="filled" />
                             {errors.LastName && <p role="alert" style={{ color: "red" }}>{`${errors.LastName.message}`}</p>}
                         </Grid>
                     </Box>
@@ -116,6 +122,7 @@ export default function EditEmp(route: { employer: any; }) {
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
                         <Grid sx={{ width: '100%' }}>
                             <TextField sx={{ width: '100%' }}
+                                InputLabelProps={{ shrink: true }}
                                 {...register("email", {
                                     required: "This field is required",
                                     pattern: {
@@ -127,7 +134,7 @@ export default function EditEmp(route: { employer: any; }) {
                             {errors.email && <p role="alert" style={{ color: "red" }}>{`${errors.email.message}`}</p>}
                         </Grid>
                         <Grid sx={{ width: '100%' }}>
-                            <TextField sx={{ width: '100%' }} {...register("phone", {
+                            <TextField sx={{ width: '100%' }} InputLabelProps={{ shrink: true }} {...register("phone", {
 
                                 maxLength: {
                                     value: 10,
@@ -201,19 +208,20 @@ export default function EditEmp(route: { employer: any; }) {
                     </Box>
                     {/* gender radio button */}
                     <Box sx={{ width: '100%', display: 'flex', gap: '10%' }}>
-                        <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard"  >
+                        {getValues("gender")?.length > 0 && <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard"  >
                             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
                             <RadioGroup
                                 aria-labelledby="demo-radio-buttons-group-label"
-                                name="radio-buttons-group"
+                                name="gender"
                                 row
+                                value={getValues("gender")}
                             >
-                                <FormControlLabel {...register("Gender", { required: "select gender" })} name="Gender" value="female" control={<Radio />} label="Female" />
-                                <FormControlLabel {...register("Gender", { required: "select gender" })} name="Gender" value="male" control={<Radio />} label="Male" />
+                                <FormControlLabel {...register("gender", { required: "select gender" })} name="gender" value="female" control={<Radio />} label="Female" />
+                                <FormControlLabel {...register("gender", { required: "select gender" })} name="gender" value="male" control={<Radio />} label="Male" />
                             </RadioGroup>
                             {errors.radiobutton && <p role="alert" style={{ color: "red" }}>{`${errors.radiobutton.message}`}</p>}
 
-                        </FormControl>
+                        </FormControl>}
                         <FormControl sx={{ width: '100%', display: 'flex', gap: '10%' }} variant="standard" >
                             <FormLabel id="demo-radio-buttons-group-label">Status</FormLabel>
                             <FormControlLabel control={<Switch />} label="Active" />
@@ -222,17 +230,17 @@ export default function EditEmp(route: { employer: any; }) {
 
                     {/* hobbies checkbox */}
                     <Box sx={{ display: 'flex' }}>
-                        <FormControl variant="filled" >
+                         <FormControl variant="filled">
                             <Grid>
                                 <FormLabel component="legend">Choose Your Hobbies</FormLabel>
-                                <FormControlLabel
-                                    control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"Singing"} name="hobbieecheck" />} label="Singing"
+                                <FormControlLabel 
+                                control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"Singing"} name="hobbieecheck" />} label="Singing" 
                                 />
 
-                                <FormControlLabel
-                                    control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"bodyBuilding"} name="hobbieecheck" />} label="bodyBuilding"
-
+                                <FormControlLabel 
+                                control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"bodyBuilding"} name="hobbieecheck" />} label="bodyBuilding" 
                                 />
+
                                 <FormControlLabel
                                     control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"Photography"} name="hobbieecheck" />} label="Photography"
 
@@ -255,26 +263,25 @@ export default function EditEmp(route: { employer: any; }) {
                     </Box>
 
                     {/* eduction select input */}
-                    <FormControl variant="filled">
-                        <InputLabel id="demo-simple-select-filled-label">Eduction</InputLabel>
-                        <Select
-                            {...register("eduction", { required: "Choose stream" })}
-                            name="eduction"
-                            labelId="demo-simple-select-filled-label"
-                            id="demo-simple-select-filled"
-                            value={Education}
-                            onChange={handleDDL}
-                        >
-                            <MenuItem value={"BCA"} >BCA</MenuItem>
-                            <MenuItem value={"MCA"} >MCA</MenuItem>
-                            <MenuItem value={"B.Tech"} >B.Tech</MenuItem>
-                            <MenuItem value={"M.Tech"} >M.Tech</MenuItem>
-                            <MenuItem value={"Under-Graduation"} >Under-Graduation</MenuItem>
-                            <MenuItem value={"Post-Graduation"} >Post-Graduation</MenuItem>
-                        </Select>
-                        {errors.eduction && <p role="alert" style={{ color: "red" }}>{`${errors.eduction.message}`}</p>}
-                    </FormControl>
-
+                        <FormControl variant="filled">
+                            <InputLabel id="demo-simple-select-filled-label">Eduction</InputLabel>
+                            <Select
+                                {...register("eduction", { required: "Choose stream" })}
+                                name="eduction"
+                                labelId="demo-simple-select-filled-label"
+                                id="demo-simple-select-filled"
+                                value={Education}
+                                onChange={handleDDL}
+                            >
+                                <MenuItem value={"BCA"} >BCA</MenuItem>
+                                <MenuItem value={"MCA"} >MCA</MenuItem>
+                                <MenuItem value={"B.Tech"} >B.Tech</MenuItem>
+                                <MenuItem value={"M.Tech"} >M.Tech</MenuItem>
+                                <MenuItem value={"Under-Graduation"} >Under-Graduation</MenuItem>
+                                <MenuItem value={"Post-Graduation"} >Post-Graduation</MenuItem>
+                            </Select>
+                            {errors.eduction && <p role="alert" style={{ color: "red" }}>{`${errors.eduction.message}`}</p>}
+                        </FormControl>
                     <FormControl variant="filled">
                         <TextareaAutosize
                             style={{ height: '60px', width: '500' }}

@@ -77,6 +77,7 @@ export default function EmpList() {
     function handleEditEmp(id: number) {
         navigate(`/editemp/${id}`)
         editEmp(id);
+    
         }
         
         
@@ -101,7 +102,7 @@ export default function EmpList() {
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                             >
                                 <TableCell>{row.id}</TableCell>
-                                <TableCell component="th" scope="row">{row.FirstName}{employer}</TableCell>
+                                <TableCell component="th" scope="row">{row.FirstName}</TableCell>
                                 <TableCell>{row.eduction}</TableCell>
                                 <TableCell>{row.email}</TableCell>
 
@@ -138,4 +139,8 @@ export default function EmpList() {
     );
 }
 
+
+function setValue(arg0: string, id: any) {
+    throw new Error("Function not implemented.");
+}
 

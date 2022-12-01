@@ -201,8 +201,8 @@ export default function Registration() {
                                 name="radio-buttons-group"
                                 row
                             >
-                                <FormControlLabel {...register("Gender", { required: "select gender" })} name="Gender" value="female" control={<Radio />} label="Female" />
-                                <FormControlLabel {...register("Gender", { required: "select gender" })} name="Gender" value="male" control={<Radio />} label="Male" />
+                                <FormControlLabel {...register("gender", { required: "select gender" })} name="gender" value="female" control={<Radio />} label="Female" />
+                                <FormControlLabel {...register("gender", { required: "select gender" })} name="gender" value="male" control={<Radio />} label="Male" />
                             </RadioGroup>
                             {errors.radiobutton && <p role="alert" style={{ color: "red" }}>{`${errors.radiobutton.message}`}</p>}
 
