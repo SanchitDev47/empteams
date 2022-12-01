@@ -1,15 +1,14 @@
 import { createContext, useReducer } from "react";
-import appReducer from "./AppReducer";
-
+import AppReducer from "./AppReducer";
 const initialState: any = {
-    employer: [],
+    employer:  [],
 }
 
 export const GlobalContext = createContext(initialState);
 
 export const GlobalProvider = ({ children }: any) => {
 
-    const [state, dispatch] = useReducer(appReducer, initialState);
+    const [state, dispatch] = useReducer(AppReducer, initialState);
 
     function editEmp(id: any) {
         dispatch({

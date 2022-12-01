@@ -1,12 +1,13 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
 import { useForm, Controller } from "react-hook-form";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useLocation, useParams } from 'react-router';
+import { GlobalContext } from '../context/GlobalState';
 // import { GlobalContext } from '../context/GlobalState';
 
-export default function EditEmp() {
+export default function EditEmp(route: { employer: any; }) {
     type FormInputs = {
         FirstName: string;
         LastName: string;
@@ -22,12 +23,13 @@ export default function EditEmp() {
         radiobutton: string;
 
     };
-    const [SelectEmp, SetSelectEmp] = useState([]);
+    const { register, formState: { errors }, watch, handleSubmit, reset, control, getValues } = useForm<FormInputs>();
+
+    const [selectEmp, setSelectedEmp] = useState([]);
 
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [Education, setEducation] = React.useState('');
-    const { register, formState: { errors }, handleSubmit, control, getValues } = useForm<FormInputs>();
     const [values, setValues] = React.useState({
         password: '',
         confirmPassword: '',
@@ -35,31 +37,36 @@ export default function EditEmp() {
         showConfirmPassword: false,
     });
 
-    // const { editEmp } = useContext(GlobalContext);
-    
+    const { employer, getOneEmp } = useContext(GlobalContext);
+
     const [selectedNotes, setselectedNotes] = useState({
         id: '',
-        title: '',
+        F: '',
         description: '',
         date: '',
     });
 
-    const onSubmit = async (data: any) => {
-        let res = await fetch('http://localhost:5000/emplist?email=' + data.email, {
+    useEffect(() => {
+        getEmpData(employer)
+    }, [])
+
+    async function getEmpData(employer: { id: any }) {
+        let response = await fetch(`http://localhost:5000/emplist/${employer}`, {
             method: 'GET'
         })
-        let user = await res.json();
-        if (user.length > 0) {
-            alert("emp already existing")
-        } else {
-            fetch('http://localhost:5000/emplist/1', {
-                method: 'PUT',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            }).then(() => {
-                alert("newEmp Successfully Created")
-            })
-        }
+        const data = await response.json();
+        console.log(data);
+    }
+
+    const onSubmit = async (route: any) => {
+        debugger;
+        fetch(`http://localhost:5000/emplist/${route}`, {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(route),
+        }).then(() => {
+            console.log('scucess')
+        })
     }
 
     const handleDDL = (event: SelectChangeEvent) => {
@@ -76,13 +83,6 @@ export default function EditEmp() {
             [prop]: value,
         });
     };
-    const getAllDataFromList = async (params: any) => {
-        params = await fetch('http://localhost:5000/editemp/', {
-            method: 'GET'
-        })
-        let user = await params.json();
-        console.log(user.length)
-    }
 
     return (
         <>
@@ -291,9 +291,9 @@ export default function EditEmp() {
                         />
                         {errors.description && <p role="alert" style={{ color: "red" }}>{`${errors.description.message}`}</p>}
                     </FormControl>
-                    
+
                     <Button onClick={handleSubmit(onSubmit)} type='submit' variant="contained" color="primary">
-                        Save Changes
+                        signUp
                     </Button>
 
                 </Box>

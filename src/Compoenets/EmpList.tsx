@@ -28,8 +28,7 @@ export default function EmpList() {
     const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
-    useEffect(() => { getEmp(); }, [])
-    const [selectedNotes, setselectedNotes] = useState({ id: ''});
+    useEffect(() => { getEmps(); }, [])
 
     const { editEmp, employer } = useContext(GlobalContext);
 // 
@@ -43,7 +42,6 @@ export default function EmpList() {
     });
 
     async function getEmps() {
-        debugger;
         await fetch(`http://localhost:5000/emplist`, {
             method: 'GET',
             headers: {
@@ -52,7 +50,6 @@ export default function EmpList() {
         })
             .then((response) => response.json())
             .then((data) => {
-                debugger;
                 // addAllEmp(data);
                 setData(data)
             })
@@ -78,11 +75,6 @@ export default function EmpList() {
     };
 
     function handleEditEmp(id: number) {
-        const dataEmp = fetch(`http://localhost:5000/emplist/${id}`, {
-            method: 'GET'
-        })
-        // .then(() => (dataEmp.json())).then(() => {console.log(dataEmp)})
-        console.log(dataEmp);
         navigate(`/editemp/${id}`)
         editEmp(id);
         }
