@@ -1,0 +1,42 @@
+ {/* //     <FormControlLabel
+                            //     key={c}
+                            //     control={< Checkbox value={c} {...register(`hobbieecheck.${i * 2}` as const)} name={`hobbieecheck.${i * 2}` as const} />} label="Singing"/>
+                            // /> */}
+                            {/* //  <label key={c}><input type="checkbox" value={c} name={`hobbieecheck.${i * 2}` as const} ref={register} />{c}</label> */}
+                            {/* <FormControl variant="filled">
+                                <Grid>
+                                    <FormLabel component="legend">Choose Your Hobbies</FormLabel>
+                                    <FormControlLabel
+                                        control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"Singing"} name="hobbieecheck" />} label="Singing"
+                                    />
+    
+                                    <FormControlLabel
+                                        control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"bodyBuilding"} name="hobbieecheck" />} label="bodyBuilding"
+                                    />
+    
+                                    <FormControlLabel
+                                        control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"Photography"} name="hobbieecheck" />} label="Photography"
+    
+                                    />
+                                    <FormControlLabel
+                                        control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"Painting"} name="hobbieecheck" />} label="Painting"
+    
+                                    />
+                                    <FormControlLabel
+                                        control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"dacing"} name="hobbieecheck" />} label="dacing"
+    
+                                    />
+                                    <FormControlLabel
+                                        control={< Checkbox {...register("hobbieecheck", { required: "Choose Atlest one" })} value={"Art and Craft"} name="hobbieecheck" />} label="Art and Craft"
+    
+                                    />
+                                </Grid>
+                                {errors.hobbieecheck && <p role="alert" style={{ color: "red" }}>{`${errors.hobbieecheck.message}`}</p>}
+                            </FormControl> */}
+
+
+                             <MenuItem value={"MCA"}>MCA</MenuItem>
+                                <MenuItem value={"B.Tech"}>B.Tech</MenuItem>
+                                <MenuItem value={"M.Tech"}>M.Tech</MenuItem>
+                                <MenuItem value={"Under-Graduation"}>Under-Graduation</MenuItem>
+                                <MenuItem value={"Post-Graduation"}>Post-Graduation</MenuItem>

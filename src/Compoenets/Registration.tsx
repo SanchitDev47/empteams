@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components";
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput, FormHelperText } from '@mui/material';
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, } from "react-hook-form";
 import { Email, Label, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
 
@@ -10,7 +10,7 @@ export default function Registration() {
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [Education, setEducation] = React.useState('');
-    const { register, formState: { errors }, watch, handleSubmit, reset, control, getValues } = useForm();
+    const { register, formState: { errors }, watch, handleSubmit, clearErrors, setError, reset, control, getValues } = useForm();
     const [values, setValues] = React.useState({
         password: '',
         confirmPassword: '',
@@ -53,6 +53,8 @@ export default function Registration() {
 
     const handleDDL = (event: SelectChangeEvent) => {
         setEducation(event.target.value as string);
+        clearErrors('eduction')
+
     };
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -109,7 +111,6 @@ export default function Registration() {
                         </Grid>
                         <Grid sx={{ width: '100%' }}>
                             <TextField sx={{ width: '100%' }} {...register("phone", {
-
                                 maxLength: {
                                     value: 10,
                                     message: "required 10 numbers"
@@ -265,8 +266,8 @@ export default function Registration() {
                             <MenuItem value={"Under-Graduation"} >Under-Graduation</MenuItem>
                             <MenuItem value={"Post-Graduation"} >Post-Graduation</MenuItem>
                         </Select>
-                        {errors.eduction && <p role="alert" style={{ color: "red" }}>{`${errors.eduction.message}`}</p>}
                     </FormControl>
+                    {errors.eduction && <p role="alert" style={{ color: "red" }}>{`${errors.eduction.message}`}</p>}
 
                     <FormControl variant="filled">
                         <TextareaAutosize
@@ -314,5 +315,7 @@ text-align: center;
 const Error = styled.p`
 color: red;
 `;
+
+
 
 

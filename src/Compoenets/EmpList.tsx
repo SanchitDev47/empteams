@@ -106,9 +106,9 @@ export default function EmpList() {
                                 <TableCell>{row.eduction}</TableCell>
                                 <TableCell>{row.email}</TableCell>
 
-                                <TableCell><AppRegistrationSharpIcon onClick={() => handleEditEmp(row.id)} /></TableCell>
+                                <TableCell><AppRegistrationSharpIcon sx={{cursor: 'pointer'}} onClick={() => handleEditEmp(row.id)} /></TableCell>
                                 <TableCell>
-                                    <DeleteIcon onClick={() => handleDilogBox()} />
+                                    <DeleteIcon sx={{cursor: 'pointer'}} onClick={() => handleDilogBox()} />
 
                                     {open && <Dialog
                                         open={open}

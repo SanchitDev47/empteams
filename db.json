@@ -19,25 +19,26 @@
   "emplist": [
     {
       "FirstName": "techovarya",
-      "LastName": "solution",
+      "LastName": "solution5864564654",
       "email": "sanchit@techovarya.com",
       "phone": "1234679132",
-      "gender": "female",
-      "status": true,
       "hobbieecheck": [
         "Singing",
         "bodyBuilding",
-        "Photography",
-        "Painting"
+        false,
+        false,
+        false,
+        "Art and Craft"
       ],
-      "eduction": "B.Tech",
+      "eduction": "Under-Graduation",
       "description": "sjfklsjfs sf sfsfs flsd fds fl",
       "password": "Sanchita@123",
       "confirmPassword": "Sanchita@123",
+      "gender": "female",
       "id": 1
     },
     {
-      "FirstName": "hemang",
+      "FirstName": "hemangSDSDFSDFAADA44",
       "LastName": "techovarya",
       "email": "ritwikmukhopadhyay@gmail.com",
       "phone": "1234678901",
@@ -45,10 +46,12 @@
         "Singing",
         "bodyBuilding",
         "Photography",
-        "dacing"
+        false,
+        false,
+        false
       ],
-      "eduction": "B.Tech",
-      "description": "wowre wre wer weprw rwo er",
+      "eduction": "M.Tech",
+      "description": "12345",
       "password": "Rushita@123",
       "confirmPassword": "Rushita@123",
       "gender": "male",

@@ -65,7 +65,7 @@ export default function App({ Data }) {
             </Typography>
             {user ? (
               <>
-                <Button onClick={navigateToAddEmp} color="inherit">
+                <Button onClick={navigateToRegisteration} color="inherit">
                   Add employer
                 </Button>
                 <Button onClick={navigateToEmpList} color="inherit">
@@ -104,6 +104,7 @@ export default function App({ Data }) {
                 </>
               ) : (
                 <>
+                
                   <Route path="/addemp" element={<AddEmp />} />
                   <Route path="/editlist" element={<EditEmp />} />
                 </>
