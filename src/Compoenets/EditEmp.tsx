@@ -5,7 +5,6 @@ import { useForm, Controller } from "react-hook-form";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useLocation, useParams, useNavigate } from 'react-router';
 import { GlobalContext } from '../context/GlobalState';
-// import { GlobalContext } from '../context/GlobalState';
 
 export default function EditEmp(route: { employer: any; }) {
     type FormInputs = {
@@ -43,7 +42,7 @@ export default function EditEmp(route: { employer: any; }) {
         showConfirmPassword: false,
     });
 
-    const { employer, getOneEmp } = useContext(GlobalContext);
+    const { employer } = useContext(GlobalContext);
 
     useEffect(() => {
         getEmpData(employer)
@@ -79,7 +78,7 @@ export default function EditEmp(route: { employer: any; }) {
             body: JSON.stringify(route),
         }).then(() => {
             navigate('/emplist')
-            console.log('sccucess')
+            console.log('success')
         })
     }
 

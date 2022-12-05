@@ -20,17 +20,15 @@ import { useNavigate } from "react-router";
 import { GlobalContext } from "../context/GlobalState";
 import { Link } from "react-router-dom";
 
-
-
-
-
 export default function EmpList() {
     const [data, setData] = useState([]);
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate();
-    useEffect(() => { getEmps(); }, [])
+    useEffect(() => { 
+        getEmps(); 
+    }, [])
 
-    const { editEmp, employer } = useContext(GlobalContext);
+    const { editEmp } = useContext(GlobalContext);
 // 
     const Transition = React.forwardRef(function Transition(
         props: TransitionProps & {

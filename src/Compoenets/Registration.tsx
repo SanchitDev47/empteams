@@ -253,7 +253,6 @@ export default function Registration() {
                         <InputLabel id="demo-simple-select-filled-label">Eduction</InputLabel>
                         <Select
                             {...register("eduction", { required: "Choose stream" })}
-                            name="eduction"
                             labelId="demo-simple-select-filled-label"
                             id="demo-simple-select-filled"
                             value={Education}

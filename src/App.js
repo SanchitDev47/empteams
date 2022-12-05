@@ -3,10 +3,13 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Switch,
+  PrivateRoute,
   useNavigate,
   Redirect,
   Prompt,
 } from "react-router-dom";
+import Alert from "@mui/material/Alert";
 import Registration from "./Compoenets/Registration";
 import Login from "./Compoenets/Login";
 import EmpList from "./Compoenets/EmpList";
@@ -18,10 +21,12 @@ import { Button } from "@mui/material";
 import "./App.css";
 import AddEmp from "./Compoenets/AddEmp";
 import EditEmp from "./Compoenets/EditEmp";
-// import { GlobalProvider } from "./context/GlobalState";
+import { GlobalContext } from "./context/GlobalState";
 
-export default function App({ Data }) {
+export default function App() {
   const navigate = useNavigate();
+  
+  const { getUserToken } = useContext(GlobalContext);
 
   const user = JSON.parse(localStorage.getItem("user-info"));
 
@@ -37,7 +42,7 @@ export default function App({ Data }) {
     navigate("/editemp");
   };
 
-  const navigateToRegisteration = () => {
+  const navigateToRegistration = () => {
     setView(!View);
     navigate("/registration");
   };
@@ -65,7 +70,7 @@ export default function App({ Data }) {
             </Typography>
             {user ? (
               <>
-                <Button onClick={navigateToRegisteration} color="inherit">
+                <Button onClick={navigateToRegistration} color="inherit">
                   Add employer
                 </Button>
                 <Button onClick={navigateToEmpList} color="inherit">
@@ -78,9 +83,11 @@ export default function App({ Data }) {
             ) : (
               <>
                 {View ? (
-                  <Button onClick={navigateToRegisteration} color="inherit">
-                    SignUp
-                  </Button>
+                  <>
+                    <Button onClick={navigateToRegistration} color="inherit">
+                      SignUp
+                    </Button>
+                  </>
                 ) : (
                   <Button onClick={navigateToLogin} color="inherit">
                     Login
@@ -91,35 +98,41 @@ export default function App({ Data }) {
           </Toolbar>
         </AppBar>
       </Box>
-
       {/* Main compoenent Routes */}
       {/* <GlobalProvider> */}
-        {user ? (
-          <>
-            <Routes>
-              {View ? (
-                <>
-                  <Route path="/emplist" element={<EmpList />} />
-                  <Route path="/editemp/:id" element={<EditEmp />} />
-                </>
-              ) : (
-                <>
-                
-                  <Route path="/addemp" element={<AddEmp />} />
-                  <Route path="/editlist" element={<EditEmp />} />
-                </>
-              )}
-            </Routes>
-          </>
-        ) : (
-          <>
-            <Routes>
-              <Route path="/registration" element={<Registration />} />
-              <Route path="/" element={<Login />} />
-            </Routes>
-          </>
-        )}
+      {user ? (
+        <>
+          <Routes>
+            {View ? (
+              <>
+                <Route path="/emplist" element={<EmpList />} />
+                <Route path="/editemp/:id" element={<EditEmp />} />
+              </>
+            ) : (
+              <>
+                <Route path="/addemp" element={<AddEmp />} />
+                <Route path="/editlist" element={<EditEmp />} />
+              </>
+            )}
+          </Routes>
+        </>
+      ) : (
+        <>
+          <Routes>
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/" element={<Login />} />
+          </Routes>
+        </>
+      )}
       {/* </GlobalProvider> */}
+{/* 
+      <Switch>
+        <PrivateRoute exact path='/addemp' component={AddEmp} />
+        <PrivateRoute exact path='/emplist' component={EmpList} />
+        <PrivateRoute exact path='/editemp/:id' />
+        <Route exact path='/' component={Login} />
+        <Route exact path='/registration' component={Registration} />
+      </Switch> */}
     </>
   );
 }

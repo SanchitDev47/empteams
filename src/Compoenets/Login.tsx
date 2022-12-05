@@ -1,12 +1,15 @@
 import { VisibilityOff, Visibility } from '@mui/icons-material';
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { Route, Routes, useNavigate } from 'react-router';
 import styled from "styled-components";
+import { GlobalContext } from '../context/GlobalState';
 
 
 export default function LoginForm() {
+    const { getUserToken } = useContext(GlobalContext);
+
     // const [LoggedIn, setLoggedIn] = React.useState(true);
     const { register, control, handleSubmit, formState: { errors }, setError } = useForm();
     const [values, setValues] = React.useState<any>({
@@ -33,9 +36,10 @@ useEffect(() => {
         });
         let user = await res.json();
         if (user.length > 0) {
+            getUserToken(user);
             if (data.password == user[0].password) {
                 alert("User Successfully logged In")
-                localStorage.setItem('user-info',JSON.stringify(user))
+                // localStorage.setItem('user-info',JSON.stringify(user))
                 navigate('/emplist')
             } else {
                 setError("password", { type: 'manual', message: 'Password is Wrong' })

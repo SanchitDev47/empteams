@@ -161,7 +161,6 @@ export default function AddEmp() {
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={age}
-                            label="Eduction"
                             onChange={handleDDL}
                         >
                             <MenuItem value={10}>BCA</MenuItem>

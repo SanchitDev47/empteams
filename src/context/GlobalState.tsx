@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import AppReducer from "./AppReducer";
 const initialState: any = {
-    employer:  [],
+    employer: [],
 }
 
 export const GlobalContext = createContext(initialState);
@@ -24,13 +24,29 @@ export const GlobalProvider = ({ children }: any) => {
         })
     }
 
+    function getUserToken(user: any) {
+        dispatch({
+            type: 'LOGIN_USER',
+            payload: user,
+        })
+    }
+    
+    function userTokenFail(user: any) {
+        dispatch({
+            type: 'LOGIN_FAIL',
+            payload: user,
+        })
+    }
+
     return (
-        <GlobalContext.Provider 
-        value={{ 
-            employer: state.employer, 
-            editEmp, 
-            addEmp,
-        }}>
+        <GlobalContext.Provider
+            value={{
+                employer: state.employer,
+                editEmp,
+                addEmp,
+                getUserToken,
+                userTokenFail,
+            }}>
             {children}
         </GlobalContext.Provider>
     )
