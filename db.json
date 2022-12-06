@@ -56,6 +56,40 @@
       "confirmPassword": "Rushita@123",
       "gender": "male",
       "id": 2
+    },
+    {
+      "FirstName": "sanchit1",
+      "LastName": "techovarya",
+      "email": "fakeDotNma@gmail.com",
+      "phone": "8208459879",
+      "gender": "female",
+      "status": true,
+      "hobbieecheck": [
+        "Singing",
+        "Painting",
+        "Art and Craft"
+      ],
+      "eduction": "M.Tech",
+      "description": "dfgdfgdfgdfgdfg",
+      "password": "Sanchit@23",
+      "confirmPassword": "Sanchit@23",
+      "id": 3
+    },
+    {
+      "FirstName": "sanchit",
+      "LastName": "techovarya",
+      "email": "barjibhe98@gmail.com",
+      "phone": "8208459879",
+      "gender": "male",
+      "status": false,
+      "hobbieecheck": [
+        "bodyBuilding"
+      ],
+      "eduction": "M.Tech",
+      "description": "dasdfsdfasdf",
+      "password": "Sanchit@213",
+      "confirmPassword": "Sanchit@213",
+      "id": 4
     }
   ]
 }

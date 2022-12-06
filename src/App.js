@@ -55,10 +55,6 @@ export default function App() {
     localStorage.clear();
     navigate("/");
   }
-  const userSection = () => {
-    navigate("/addemp");
-    navigate("/emplist");
-  };
 
   return (
     <>
@@ -70,11 +66,11 @@ export default function App() {
             </Typography>
             {user ? (
               <>
-                <Button onClick={navigateToRegistration} color="inherit">
+                <Button onClick={navigateToAddEmp} color="inherit">
                   Add employer
                 </Button>
                 <Button onClick={navigateToEmpList} color="inherit">
-                  Epmployer
+                  Employers
                 </Button>
                 <Button onClick={logout} color="inherit">
                   Logout
