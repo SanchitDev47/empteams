@@ -28,7 +28,7 @@ export default function App() {
   
   const { getUserToken } = useContext(GlobalContext);
 
-  const user = JSON.parse(localStorage.getItem("user-info"));
+  const user = JSON.parse(localStorage.getItem("access-token"));
 
   const [View, setView] = useState(true);
 

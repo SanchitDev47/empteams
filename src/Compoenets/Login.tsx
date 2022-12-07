@@ -1,17 +1,14 @@
-import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { VisibilityOff, Visibility, Password } from '@mui/icons-material';
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import { Route, Routes, useNavigate } from 'react-router';
 import styled from "styled-components";
 import { GlobalContext } from '../context/GlobalState';
-var jwt = require('jsonwebtoken');
-
-
+import * as jose from 'jose'
+import jwtDecode from "jwt-decode";
 
 export default function LoginForm() {
-
-    var token = jwt.sign({ foo: 'email' }, 'w94589823');
 
     const { getUserToken } = useContext(GlobalContext);
     const { register, control, handleSubmit, formState: { errors }, setError } = useForm();
@@ -30,20 +27,6 @@ export default function LoginForm() {
         }
     }, [])
 
-
-
-    // const onSubmit = async (data: any) => {
-    //   await fetch(`http://localhost:5000/emplist?email=${data.email}`, {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         credentials: 'include',
-    //         body: JSON.stringify({
-    //             email,
-    //             password
-    //         })
-    //   });
-
-    // }
     // Click Event Function
     const onSubmit = async (data: any) => {
         const res = await fetch(`http://localhost:5000/emplist?email=${data.email}`, {
@@ -52,10 +35,29 @@ export default function LoginForm() {
         });
         let user = await res.json();
         if (user.length > 0) {
+            const secret = new TextEncoder().encode(
+                'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
+            )
+            const alg = 'HS256'
+            const jwtToken = await new jose.SignJWT({ 'urn:user:claim': true })
+                .setProtectedHeader({ alg })
+                .setIssuedAt(user)
+                .setIssuer('urn:user:issuer')
+                .setAudience('urn:user:audience')
+                .setExpirationTime('1m')
+                .sign(secret)
+            console.log(jwtToken)
             if (data.password == user[0].password) {
                 alert("User Successfully logged In")
-                // getUserToken();
-                localStorage.setItem('user-info', JSON.stringify(user))
+                // getUserToken();  
+                if (user) {
+                    var decodedHeader = jwtDecode(jwtToken, { header: true });
+                    if (decodedHeader.exp * 1000 < Date.now()) {
+                        localStorage.clear();
+                    }
+                }
+                console.log(decodedHeader);
+                localStorage.setItem('access-token', JSON.stringify(jwtToken))
                 navigate('/emplist')
             } else {
                 setError("password", { type: 'manual', message: 'Password is Wrong' })
@@ -91,7 +93,7 @@ export default function LoginForm() {
                     weight: '100%',
                     padding: '3%',
                     gap: '15px',
-                    boxShadow: ' 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)'
+                    boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)'
                 }}>
                     <TextField sx={{ width: '100%', }}
                         {...register("email", {
@@ -142,3 +144,4 @@ export default function LoginForm() {
 const Header = styled.h1`
 text-align: center;
 `;
+
