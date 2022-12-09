@@ -19,7 +19,7 @@ export default function appReducer(state: any, action: { type: any; payload: any
         emps: getOneEmp,
       };
       case 'LOGIN_USER':
-        localStorage.setItem("access-token", action.payload.token);
+        localStorage.getItem(action.payload.token);
         return {
           ...state,
           employer: action.payload,

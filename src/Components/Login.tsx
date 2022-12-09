@@ -21,10 +21,23 @@ export default function LoginForm() {
     });
     const navigate = useNavigate();
 
+    const [isAuthenticated, setIsAuthenticated] = useState<any>(null);
+
     useEffect(() => {
-        if (localStorage.getItem('user-info')) {
-            navigate('/emplist')
+        let token: any = localStorage.getItem('access-token')
+        if (token) {
+            let tokenExpiration: any = jwtDecode<any>(token).exp;
+            let dateNow = new Date();
+
+            if (tokenExpiration < dateNow.getTime() / 1000) {
+                setIsAuthenticated(false)
+            } else {
+                setIsAuthenticated(true)
+            }
+        } else {
+            setIsAuthenticated(false)
         }
+        // eslint-disable-next-line
     }, [])
 
     // Click Event Function
@@ -35,7 +48,7 @@ export default function LoginForm() {
         });
         let user = await res.json();
         if (user.length > 0) {
-            const secret = new TextEncoder().encode(
+            const secretKey = new TextEncoder().encode(
                 'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
             )
             const alg = 'HS256'
@@ -45,19 +58,12 @@ export default function LoginForm() {
                 .setIssuer('urn:user:issuer')
                 .setAudience('urn:user:audience')
                 .setExpirationTime('1m')
-                .sign(secret)
-            console.log(jwtToken)
+                .sign(secretKey)
+            localStorage.setItem('access-token', JSON.stringify(jwtToken))
+            const decodedJwt: any = jwtDecode(jwtToken);
+            console.log(decodedJwt);
             if (data.password == user[0].password) {
                 alert("User Successfully logged In")
-                // getUserToken();  
-                if (user) {
-                    var decodedHeader = jwtDecode(jwtToken, { header: true });
-                    if (decodedHeader.exp * 1000 < Date.now()) {
-                        localStorage.clear();
-                    }
-                }
-                console.log(decodedHeader);
-                localStorage.setItem('access-token', JSON.stringify(jwtToken))
                 navigate('/emplist')
             } else {
                 setError("password", { type: 'manual', message: 'Password is Wrong' })

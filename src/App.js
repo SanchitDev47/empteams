@@ -3,29 +3,25 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Switch,
-  PrivateRoute,
   useNavigate,
-  Redirect,
-  Prompt,
 } from "react-router-dom";
-import Alert from "@mui/material/Alert";
-import Registration from "./Compoenets/Registration";
-import Login from "./Compoenets/Login";
-import EmpList from "./Compoenets/EmpList";
+import Registration from "./Components/Registration";
+import Login from "./Components/Login";
+import EmpList from "./Components/EmpList";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
 import "./App.css";
-import AddEmp from "./Compoenets/AddEmp";
-import EditEmp from "./Compoenets/EditEmp";
+import AddEmp from "./Components/AddEmp";
+import EditEmp from "./Components/EditEmp";
 import { GlobalContext } from "./context/GlobalState";
+// import PrivateRoute from "./Components/PrivateRoute";
 
 export default function App() {
   const navigate = useNavigate();
-  
+
   const { getUserToken } = useContext(GlobalContext);
 
   const user = JSON.parse(localStorage.getItem("access-token"));
@@ -94,8 +90,6 @@ export default function App() {
           </Toolbar>
         </AppBar>
       </Box>
-      {/* Main compoenent Routes */}
-      {/* <GlobalProvider> */}
       {user ? (
         <>
           <Routes>
@@ -107,7 +101,6 @@ export default function App() {
             ) : (
               <>
                 <Route path="/addemp" element={<AddEmp />} />
-                <Route path="/editlist" element={<EditEmp />} />
               </>
             )}
           </Routes>
@@ -120,15 +113,19 @@ export default function App() {
           </Routes>
         </>
       )}
-      {/* </GlobalProvider> */}
-{/* 
-      <Switch>
-        <PrivateRoute exact path='/addemp' component={AddEmp} />
-        <PrivateRoute exact path='/emplist' component={EmpList} />
-        <PrivateRoute exact path='/editemp/:id' />
-        <Route exact path='/' component={Login} />
-        <Route exact path='/registration' component={Registration} />
-      </Switch> */}
+      {/* <Provider store={store}>
+        <Router>
+          <Header>
+            <Routes>
+              <Route exact path="/" component={Registration} />
+              <Route exact path="/login" component={Login} />
+              <PrivateRoute exact path="/addemp" component={AddEmp} />
+              <PrivateRoute exact path="/editemp/:id" component={EditEmp} />
+              <PrivateRoute exact path="/emplist" component={EmpList} />
+            </Routes>
+          </Header>
+        </Router>
+      </Provider> */}
     </>
   );
 }
