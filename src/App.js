@@ -17,7 +17,7 @@ import "./App.css";
 import AddEmp from "./Components/AddEmp";
 import EditEmp from "./Components/EditEmp";
 import { GlobalContext } from "./context/GlobalState";
-// import PrivateRoute from "./Components/PrivateRoute";
+import PrivateRoute from "./Components/PrivateRoute";
 
 export default function App() {
   const navigate = useNavigate();
@@ -113,9 +113,8 @@ export default function App() {
           </Routes>
         </>
       )}
-      {/* <Provider store={store}>
-        <Router>
-          <Header>
+      
+        {/* <Router>
             <Routes>
               <Route exact path="/" component={Registration} />
               <Route exact path="/login" component={Login} />
@@ -123,9 +122,7 @@ export default function App() {
               <PrivateRoute exact path="/editemp/:id" component={EditEmp} />
               <PrivateRoute exact path="/emplist" component={EmpList} />
             </Routes>
-          </Header>
-        </Router>
-      </Provider> */}
+        </Router> */}
     </>
   );
 }

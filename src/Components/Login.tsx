@@ -1,4 +1,4 @@
-import { VisibilityOff, Visibility, Password } from '@mui/icons-material';
+import { VisibilityOff, Visibility, Password, FiberNew, FunctionsOutlined, SnippetFolder } from '@mui/icons-material';
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
@@ -23,46 +23,54 @@ export default function LoginForm() {
 
     const [isAuthenticated, setIsAuthenticated] = useState<any>(null);
 
-    useEffect(() => {
-        let token: any = localStorage.getItem('access-token')
-        if (token) {
-            let tokenExpiration: any = jwtDecode<any>(token).exp;
-            let dateNow = new Date();
+    // useEffect(() => {
+    //     // localStorage.getItem('access-token')
+    //     console.log('useEffect')
+    //     // eslint-disable-next-line
+    // }, [])
 
-            if (tokenExpiration < dateNow.getTime() / 1000) {
-                setIsAuthenticated(false)
-            } else {
-                setIsAuthenticated(true)
-            }
-        } else {
-            setIsAuthenticated(false)
-        }
-        // eslint-disable-next-line
-    }, [])
+//    const GenerateJwtToken = async (employer: any) => {
+//         const secretKey = new TextEncoder().encode(
+//             'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
+//         )
+//         const alg = 'HS256'
+//         const jwtToken = await new jose.SignJWT({ 'urn:employer:claim': true })
+//             .setProtectedHeader({ alg })
+//             .setIssuedAt(employer)
+//             .setIssuer('urn:employer:issuer')
+//             .setAudience('urn:employer:audience')
+//             .setExpirationTime('1m')
+//             .sign(secretKey)
+//         localStorage.setItem('access-token', JSON.stringify(jwtToken))
+//         const decodedJwt: any = jwtDecode(jwtToken);
+//     }
+
+//     const JwtTokenExp = (decodedJwt: any) => {
+//         let currentDate = new Date();
+//         if (decodedJwt.exp * 2000 < currentDate.getTime()) {
+//             localStorage.clear();
+//             console.log("Token expired.");
+//             navigate('/')
+//         } else {
+//             console.log("Valid token");
+//         }
+//         console.log(decodedJwt.exp);
+//     }
+
 
     // Click Event Function
-    const onSubmit = async (data: any) => {
-        const res = await fetch(`http://localhost:5000/emplist?email=${data.email}`, {
+    const onSubmit = async (employer: any) => {
+        // GenerateJwtToken(employer);
+        getUserToken(employer)
+        const res = await fetch(`http://localhost:5000/emplist?email=${employer.email}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" },
         });
         let user = await res.json();
         if (user.length > 0) {
-            const secretKey = new TextEncoder().encode(
-                'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
-            )
-            const alg = 'HS256'
-            const jwtToken = await new jose.SignJWT({ 'urn:user:claim': true })
-                .setProtectedHeader({ alg })
-                .setIssuedAt(user)
-                .setIssuer('urn:user:issuer')
-                .setAudience('urn:user:audience')
-                .setExpirationTime('1m')
-                .sign(secretKey)
-            localStorage.setItem('access-token', JSON.stringify(jwtToken))
-            const decodedJwt: any = jwtDecode(jwtToken);
-            console.log(decodedJwt);
-            if (data.password == user[0].password) {
+            //Token Start
+            if (employer.password == user[0].password) {
+                localStorage.getItem('access-token');
                 alert("User Successfully logged In")
                 navigate('/emplist')
             } else {

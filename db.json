@@ -18,78 +18,24 @@
   },
   "emplist": [
     {
-      "FirstName": "techovarya",
-      "LastName": "solution5864564654",
-      "email": "sanchit@techovarya.com",
+      "FirstName": "sanchit",
+      "LastName": "barjibhe",
+      "email": "sanchit@gmail.com",
       "phone": "1234679132",
-      "hobbieecheck": [
-        "Singing",
-        "bodyBuilding",
-        false,
-        false,
-        false,
-        "Art and Craft"
-      ],
-      "eduction": "Under-Graduation",
-      "description": "sjfklsjfs sf sfsfs flsd fds fl",
-      "password": "Sanchita@123",
-      "confirmPassword": "Sanchita@123",
-      "gender": "female",
-      "id": 1
-    },
-    {
-      "FirstName": "hemangSDSDFSDFAADA44",
-      "LastName": "techovarya",
-      "email": "ritwikmukhopadhyay@gmail.com",
-      "phone": "1234678901",
       "hobbieecheck": [
         "Singing",
         "bodyBuilding",
         "Photography",
         false,
         false,
-        false
-      ],
-      "eduction": "M.Tech",
-      "description": "12345",
-      "password": "Rushita@123",
-      "confirmPassword": "Rushita@123",
-      "gender": "male",
-      "id": 2
-    },
-    {
-      "FirstName": "sanchit1",
-      "LastName": "techovarya",
-      "email": "fakeDotNma@gmail.com",
-      "phone": "8208459879",
-      "gender": "female",
-      "status": true,
-      "hobbieecheck": [
-        "Singing",
-        "Painting",
         "Art and Craft"
       ],
-      "eduction": "M.Tech",
-      "description": "dfgdfgdfgdfgdfg",
-      "password": "Sanchit@23",
-      "confirmPassword": "Sanchit@23",
-      "id": 3
-    },
-    {
-      "FirstName": "sanchit",
-      "LastName": "techovarya",
-      "email": "barjibhe98@gmail.com",
-      "phone": "8208459879",
-      "gender": "male",
-      "status": false,
-      "hobbieecheck": [
-        "bodyBuilding"
-      ],
-      "eduction": "M.Tech",
-      "description": "dasdfsdfasdf",
-      "password": "Sanchit@213",
-      "confirmPassword": "Sanchit@213",
-      "id": 4
+      "eduction": "Post-Graduation",
+      "description": "react developer",
+      "password": "Sanchit@123",
+      "confirmPassword": "Sanchit@123",
+      "gender": null,
+      "id": 1
     }
   ]
 }
