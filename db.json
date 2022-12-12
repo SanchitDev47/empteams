@@ -19,7 +19,7 @@
   "emplist": [
     {
       "FirstName": "sanchit",
-      "LastName": "barjibhe",
+      "LastName": "barjibhe1",
       "email": "sanchit@gmail.com",
       "phone": "1234679132",
       "hobbieecheck": [
@@ -34,6 +34,26 @@
       "description": "react developer",
       "password": "Sanchit@123",
       "confirmPassword": "Sanchit@123",
+      "gender": null,
+      "id": 1
+    },
+    {
+      "FirstName": "test",
+      "LastName": "test123",
+      "email": "test@gmail.com",
+      "phone": "1234679132",
+      "hobbieecheck": [
+        "Singing",
+        "bodyBuilding",
+        "Photography",
+        false,
+        false,
+        "Art and Craft"
+      ],
+      "eduction": "Post-Graduation",
+      "description": "react developer",
+      "password": "test@123",
+      "confirmPassword": "test@123",
       "gender": null,
       "id": 1
     }

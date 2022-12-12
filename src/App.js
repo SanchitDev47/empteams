@@ -16,13 +16,10 @@ import { Button } from "@mui/material";
 import "./App.css";
 import AddEmp from "./Components/AddEmp";
 import EditEmp from "./Components/EditEmp";
-import { GlobalContext } from "./context/GlobalState";
 import PrivateRoute from "./Components/PrivateRoute";
 
 export default function App() {
   const navigate = useNavigate();
-
-  const { getUserToken } = useContext(GlobalContext);
 
   const user = JSON.parse(localStorage.getItem("access-token"));
 
@@ -58,7 +55,7 @@ export default function App() {
         <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Techovarya
+              Employer app
             </Typography>
             {user ? (
               <>
@@ -110,11 +107,13 @@ export default function App() {
           <Routes>
             <Route path="/registration" element={<Registration />} />
             <Route path="/" element={<Login />} />
+            {/* <PrivateRoute /> */}
           </Routes>
         </>
       )}
+
       
-        {/* <Router>
+      {/* <Router>
             <Routes>
               <Route exact path="/" component={Registration} />
               <Route exact path="/login" component={Login} />

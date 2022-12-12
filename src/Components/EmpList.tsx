@@ -19,6 +19,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { GlobalContext } from "../context/GlobalState";
 import { Link } from "react-router-dom";
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function EmpList() {
     const [data, setData] = useState([]);
@@ -104,7 +105,7 @@ export default function EmpList() {
                                 <TableCell>{row.eduction}</TableCell>
                                 <TableCell>{row.email}</TableCell>
 
-                                <TableCell><AppRegistrationSharpIcon sx={{cursor: 'pointer'}} onClick={() => handleEditEmp(row.id)} /></TableCell>
+                                <TableCell><EditIcon sx={{cursor: 'pointer'}} onClick={() => handleEditEmp(row.id)} /></TableCell>
                                 <TableCell>
                                     <DeleteIcon sx={{cursor: 'pointer'}} onClick={() => handleDilogBox()} />
 

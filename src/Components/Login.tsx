@@ -21,7 +21,6 @@ export default function LoginForm() {
     });
     const navigate = useNavigate();
 
-    const [isAuthenticated, setIsAuthenticated] = useState<any>(null);
 
     // useEffect(() => {
     //     // localStorage.getItem('access-token')
@@ -29,50 +28,49 @@ export default function LoginForm() {
     //     // eslint-disable-next-line
     // }, [])
 
-//    const GenerateJwtToken = async (employer: any) => {
-//         const secretKey = new TextEncoder().encode(
-//             'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
-//         )
-//         const alg = 'HS256'
-//         const jwtToken = await new jose.SignJWT({ 'urn:employer:claim': true })
-//             .setProtectedHeader({ alg })
-//             .setIssuedAt(employer)
-//             .setIssuer('urn:employer:issuer')
-//             .setAudience('urn:employer:audience')
-//             .setExpirationTime('1m')
-//             .sign(secretKey)
-//         localStorage.setItem('access-token', JSON.stringify(jwtToken))
-//         const decodedJwt: any = jwtDecode(jwtToken);
-//     }
+    //    const GenerateJwtToken = async (employer: any) => {
+    //         const secretKey = new TextEncoder().encode(
+    //             'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
+    //         )
+    //         const alg = 'HS256'
+    //         const jwtToken = await new jose.SignJWT({ 'urn:employer:claim': true })
+    //             .setProtectedHeader({ alg })
+    //             .setIssuedAt(employer)
+    //             .setIssuer('urn:employer:issuer')
+    //             .setAudience('urn:employer:audience')
+    //             .setExpirationTime('1m')
+    //             .sign(secretKey)
+    //         localStorage.setItem('access-token', JSON.stringify(jwtToken))
+    //         const decodedJwt: any = jwtDecode(jwtToken);
+    //     }
 
-//     const JwtTokenExp = (decodedJwt: any) => {
-//         let currentDate = new Date();
-//         if (decodedJwt.exp * 2000 < currentDate.getTime()) {
-//             localStorage.clear();
-//             console.log("Token expired.");
-//             navigate('/')
-//         } else {
-//             console.log("Valid token");
-//         }
-//         console.log(decodedJwt.exp);
-//     }
+    //     const JwtTokenExp = (decodedJwt: any) => {
+    //         let currentDate = new Date();
+    //         if (decodedJwt.exp * 2000 < currentDate.getTime()) {
+    //             localStorage.clear();
+    //             console.log("Token expired.");
+    //             navigate('/')
+    //         } else {
+    //             console.log("Valid token");
+    //         }
+    //         console.log(decodedJwt.exp);
+    //     }
 
 
     // Click Event Function
     const onSubmit = async (employer: any) => {
         // GenerateJwtToken(employer);
-        getUserToken(employer)
         const res = await fetch(`http://localhost:5000/emplist?email=${employer.email}`, {
             method: 'GET',
             headers: { "Content-Type": "application/json" },
         });
         let user = await res.json();
         if (user.length > 0) {
-            //Token Start
             if (employer.password == user[0].password) {
-                localStorage.getItem('access-token');
+                // localStorage.getItem('access-token');
                 alert("User Successfully logged In")
                 navigate('/emplist')
+                getUserToken(employer)
             } else {
                 setError("password", { type: 'manual', message: 'Password is Wrong' })
             }

@@ -25,10 +25,10 @@ export const GlobalProvider = ({ children }: any) => {
         })
     }
 
-    function getUserToken(token: any) {
+    function getUserToken(employer: any) {
         dispatch({
             type: 'LOGIN_USER',
-            payload: token,
+            payload: employer,
         })
     }
     
