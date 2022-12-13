@@ -69,8 +69,7 @@ export default function LoginForm() {
             if (employer.password == user[0].password) {
                 // localStorage.getItem('access-token');
                 alert("User Successfully logged In")
-                navigate('/emplist')
-                getUserToken(employer)
+                getUserToken(employer);
             } else {
                 setError("password", { type: 'manual', message: 'Password is Wrong' })
             }
@@ -97,12 +96,12 @@ export default function LoginForm() {
             <Header>Login With Techovarya</Header>
             <Grid container spacing={1} sx={{ justifyContent: 'center', }}>
                 <Box sx={{
+                    top: '40%',
+                    height: '100%',
+                    weight: '100%',
                     display: 'flex',
                     flexDirection: 'column',
                     background: '#FFFFFF',
-                    height: '100%',
-                    top: '40%',
-                    weight: '100%',
                     padding: '3%',
                     gap: '15px',
                     boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)'

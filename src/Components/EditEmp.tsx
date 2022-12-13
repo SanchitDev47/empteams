@@ -29,8 +29,6 @@ export default function EditEmp(route: { employer: any; }) {
     const navigate = useNavigate();
 
     const hobbieecheck = "Singing-bodyBuilding-Photography-Painting-Dancing-Art and Craft".split('-');
-
-
     //React Hooks
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [isProcessing, setisProcessing] = React.useState(false);

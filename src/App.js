@@ -4,19 +4,24 @@ import {
   Routes,
   Route,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 import Registration from "./Components/Registration";
 import Login from "./Components/Login";
 import EmpList from "./Components/EmpList";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { Button } from "@mui/material";
+import {
+  Button,
+  Avatar,
+  Typography,
+  AppBar,
+  Box,
+  Toolbar,
+} from "@mui/material";
 import "./App.css";
 import AddEmp from "./Components/AddEmp";
 import EditEmp from "./Components/EditEmp";
 import PrivateRoute from "./Components/PrivateRoute";
+import Profile from "./Components/Profile";
 
 export default function App() {
   const navigate = useNavigate();
@@ -46,9 +51,11 @@ export default function App() {
   };
   function logout() {
     localStorage.clear();
-    navigate("/");
+    navigate("/login");
   }
-
+  function navigateToProfile() {
+    navigate("/profile");
+  }
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -68,6 +75,11 @@ export default function App() {
                 <Button onClick={logout} color="inherit">
                   Logout
                 </Button>
+                <Avatar
+                  onClick={navigateToProfile}
+                  src="/broken-image.jpg"
+                  sx={{ height: "37px", width: "37px" }}
+                />
               </>
             ) : (
               <>
@@ -87,41 +99,25 @@ export default function App() {
           </Toolbar>
         </AppBar>
       </Box>
-      {user ? (
-        <>
-          <Routes>
-            {View ? (
-              <>
-                <Route path="/emplist" element={<EmpList />} />
-                <Route path="/editemp/:id" element={<EditEmp />} />
-              </>
-            ) : (
-              <>
-                <Route path="/addemp" element={<AddEmp />} />
-              </>
-            )}
-          </Routes>
-        </>
-      ) : (
-        <>
-          <Routes>
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/" element={<Login />} />
-            {/* <PrivateRoute /> */}
-          </Routes>
-        </>
-      )}
-
-      
-      {/* <Router>
-            <Routes>
-              <Route exact path="/" component={Registration} />
-              <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/addemp" component={AddEmp} />
-              <PrivateRoute exact path="/editemp/:id" component={EditEmp} />
-              <PrivateRoute exact path="/emplist" component={EmpList} />
-            </Routes>
-        </Router> */}
+      <Routes>
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<Navigate to={"/emplist"} />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/emplist" element={<EmpList />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/editemp/:id" element={<EditEmp />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/addemp" element={<AddEmp />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
     </>
   );
 }

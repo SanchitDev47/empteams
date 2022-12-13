@@ -6,7 +6,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AppRegistrationSharpIcon from '@mui/icons-material/AppRegistrationSharp';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -18,7 +17,6 @@ import { TransitionProps } from "@mui/material/transitions";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { GlobalContext } from "../context/GlobalState";
-import { Link } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 
 export default function EmpList() {
@@ -108,7 +106,6 @@ export default function EmpList() {
                                 <TableCell><EditIcon sx={{cursor: 'pointer'}} onClick={() => handleEditEmp(row.id)} /></TableCell>
                                 <TableCell>
                                     <DeleteIcon sx={{cursor: 'pointer'}} onClick={() => handleDilogBox()} />
-
                                     {open && <Dialog
                                         open={open}
                                         TransitionComponent={Transition}
@@ -136,10 +133,5 @@ export default function EmpList() {
 
         </>
     );
-}
-
-
-function setValue(arg0: string, id: any) {
-    throw new Error("Function not implemented.");
 }
 
