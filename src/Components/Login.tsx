@@ -1,12 +1,10 @@
+import React, { useContext, useEffect, useState } from 'react'
 import { VisibilityOff, Visibility, Password, FiberNew, FunctionsOutlined, SnippetFolder } from '@mui/icons-material';
 import { Box, Grid, Button, TextField, FormGroup, FormControlLabel, TextareaAutosize, Checkbox, InputLabel, MenuItem, FormControl, Select, Switch, SelectChangeEvent, RadioGroup, FormLabel, Radio, OutlinedInput, InputAdornment, IconButton, Input, FilledInput } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
-import { Route, Routes, useNavigate } from 'react-router';
+import { Route, Routes, useNavigate, useLocation } from 'react-router';
 import styled from "styled-components";
 import { GlobalContext } from '../context/GlobalState';
-import * as jose from 'jose'
-import jwtDecode from "jwt-decode";
 
 export default function LoginForm() {
 
@@ -19,44 +17,52 @@ export default function LoginForm() {
         weightRange: '',
         showPassword: false,
     });
+
+    // const { GetAccessToken } = authAction;
     const navigate = useNavigate();
 
+    const login = (e: Event) => {
+        e.preventDefault();
+        var requestUrl =
+            'https://thescholarsclubportal.b2clogin.com' +
+            "/" +
+            'thescholarsclubportal.onmicrosoft.com' +
+            "/oauth2/v2.0/authorize?" +
+            "p=" +
+            'B2C_1_signin' +
+            "&client_id=" +
+            '8d9a0d0f-f31c-47fa-b981-003852bd4482' +
+            "&nonce=defaultNonce" +
+            "&redirect_uri=" +
+            'http://localhost:3000' +
+            "/login" +
+            "&scope=" +
+            'https://thescholarsclubportal.onmicrosoft.com/api/access_as_user offline_access' +
+            "&response_type=code" +
+            "&prompt=login";
+        window.open(requestUrl, '_self');
+    };
 
-    // useEffect(() => {
-    //     // localStorage.getItem('access-token')
-    //     console.log('useEffect')
-    //     // eslint-disable-next-line
-    // }, [])
-
-    //    const GenerateJwtToken = async (employer: any) => {
-    //         const secretKey = new TextEncoder().encode(
-    //             'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
-    //         )
-    //         const alg = 'HS256'
-    //         const jwtToken = await new jose.SignJWT({ 'urn:employer:claim': true })
-    //             .setProtectedHeader({ alg })
-    //             .setIssuedAt(employer)
-    //             .setIssuer('urn:employer:issuer')
-    //             .setAudience('urn:employer:audience')
-    //             .setExpirationTime('1m')
-    //             .sign(secretKey)
-    //         localStorage.setItem('access-token', JSON.stringify(jwtToken))
-    //         const decodedJwt: any = jwtDecode(jwtToken);
-    //     }
-
-    //     const JwtTokenExp = (decodedJwt: any) => {
-    //         let currentDate = new Date();
-    //         if (decodedJwt.exp * 2000 < currentDate.getTime()) {
-    //             localStorage.clear();
-    //             console.log("Token expired.");
-    //             navigate('/')
-    //         } else {
-    //             console.log("Valid token");
-    //         }
-    //         console.log(decodedJwt.exp);
-    //     }
+    let location = useLocation();
+    useEffect(() => {
+        var code = new URLSearchParams(location.search);
+        console.log(code.get("code"));
+        if (code.get("code") !== null) {
+            let code1 = code.get("code");
+            getAccessToken(code1);
+        }
+    }, []);
 
 
+    const getAccessToken = (code: any) => {
+        fetch(`https://localhost:7124/api/login/GetUserTokens?code=${code}`, {
+            method: 'GET',
+            headers: { "Content-Type": "application/json" },
+        }).then(async (res) => {
+            let user = await res.json();
+            console.log(user)
+        })
+    }
     // Click Event Function
     const onSubmit = async (employer: any) => {
         // GenerateJwtToken(employer);
@@ -66,10 +72,9 @@ export default function LoginForm() {
         });
         let user = await res.json();
         if (user.length > 0) {
-            if (employer.password == user[0].password) {
-                // localStorage.getItem('access-token');
+            if (user.password == user[0].password) {
+                getAccessToken(employer);
                 alert("User Successfully logged In")
-                getUserToken(employer);
             } else {
                 setError("password", { type: 'manual', message: 'Password is Wrong' })
             }
@@ -144,7 +149,7 @@ export default function LoginForm() {
                         {errors.password && <p role="alert" style={{ color: "red" }}>{`${errors.password.message}`}</p>}
 
                     </FormControl>
-                    <Button onClick={handleSubmit(onSubmit)} type='submit' variant="contained" color="primary">
+                    <Button onClick={(e: any) => login(e)} variant="contained" color="primary">
                         Login
                     </Button>
                 </Box>

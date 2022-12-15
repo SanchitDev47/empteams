@@ -50,6 +50,13 @@ export default function Registration() {
             })
         }
     }
+    function SubmitEvent() {
+        fetch('http://localhost:5000/emplist', {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: 'hussain', surname: 'kagiwala' }),
+        })
+    }
 
     const handleDDL = (event: SelectChangeEvent) => {
         setEducation(event.target.value as string);
@@ -70,6 +77,7 @@ export default function Registration() {
 
     return (
         <>
+            <Button onClick={SubmitEvent}>onsk</Button>
             <Header>Welcome To Techovarya</Header>
             <Grid container spacing={2} sx={{ justifyContent: 'center' }}>
                 <Box sx={{

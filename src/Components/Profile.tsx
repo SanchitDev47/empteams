@@ -1,14 +1,19 @@
-import { CenterFocusStrong } from '@mui/icons-material';
-import { Avatar, Box, Grid } from '@mui/material'
-import { borderRadius } from '@mui/system';
+// import { CenterFocusStrong } from '@mui/icons-material';
+import { Avatar, Button, Grid } from '@mui/material'
 import { useContext, useEffect, useState } from 'react';
 import { GlobalContext } from '../context/GlobalState';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { Icon } from '@mui/material';
+import { useNavigate } from 'react-router';
+
+
 
 export default function Profile() {
 
     const { employer } = useContext(GlobalContext);
 
-    const [LoggedInUser, setLoggedInUser] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getLoginUserInfo(employer);
@@ -23,7 +28,7 @@ export default function Profile() {
             },
         })
         let user = await res.json();
-        setLoggedInUser(user)
+        // setLoggedInUser(user)
 
         // .then((response) => response.json())
         // .then((data) => {
@@ -33,9 +38,6 @@ export default function Profile() {
         // .catch((error) => {
         //     console.log(error);
         // });
-
-
-
         // let res = await fetch('http://localhost:5000/emplist?email=' + employer.id, {
         //     method: 'Get'
         // })
@@ -44,33 +46,76 @@ export default function Profile() {
         // console.log(user)
     }
 
+
+    const myStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        backgroundImage: "url('https://wallpapercave.com/wp/wp8606869.png')",
+        height: '400px',
+        fontSize: '50px',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        // opacity: '0.5'
+
+    };
+
+    const profileContent = {
+        display: 'flex',
+        fontSize: '18px',
+        color: 'white',
+    }
+
+    const profilebtn = {
+        display: 'flex',
+        justifyContent: 'spaceEvenly',
+
+    }
+
+    const btn = {
+        color: 'black',
+        background: 'skyblue',
+        border: 'none',
+        height: '30px',
+        width: '70px',
+        borderRadius: '24px'
+    }
+    const btnsm = {
+        color: 'black',
+        background: 'skyblue',
+        border: 'none',
+        // height: '30px',
+        // width: '30px',
+        borderRadius: '24px'
+    }
+
+    // function handleNavigate() {
+    //     navigate('https://www.techovarya.com')
+    // }
+
+    // function handleNavigate001() {
+    //     navigate('www.infosys.com')
+    // }
     return (
-        <Grid container spacing={3} sx={{ mt: '5%', justifyContent: 'center', alignContent: 'center' }}>
-            <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                background: '#FFFFFF',
-                height: '100%',
-                alignItems: 'center',
-                width: '50%',
-                padding: '3%',
-                justifyContent: 'center',
-                boxShadow: 12,
-                borderRadius: '15px'
-            }}>
-                <Avatar sx={{ height: "60px", width: "60px" }} />
-                <p>Full name</p>
-                <p>Email</p>
-                <p>Hobbies</p>
-                {/* {LoggedInUser.map((user: any) => (
-                    <>
-                        <p>Full Name:{user.name}</p>
-                        <label htmlFor="">Gender</label>
-                        <label htmlFor="">Email</label>
-                        <label htmlFor="">hobbies</label>
-                    </>
-                ))} */}
-            </Box>
-        </Grid>
+        <div style={myStyle}>
+            <Grid sx={{ mt: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Avatar sx={{ height: "120px", justifyContent: 'center', width: "120px", flexDirection: 'column', alignItems: 'center' }} />
+                <Grid sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0', m: '0' }}>
+                    <p style={profileContent}>Jone Doe</p>
+                    <p style={profileContent}>Jonedoe24@gmail.com</p>
+                    <p style={profileContent}>Hobbies</p>
+                    <p style={profileContent}>profiler name</p>
+                </Grid>
+                <div style={profilebtn}>
+                    <button style={btn}>Button</button>
+                    <button style={btnsm}><LinkedInIcon /></button>
+                    <button style={btnsm}><InstagramIcon /></button>
+                </div>
+                <Grid>
+                    {/* <button>Button</button>
+            <button>Button</button>
+            <button>Button</button> */}
+                </Grid>
+            </Grid>
+        </div>
     )
 }
